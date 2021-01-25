@@ -24,4 +24,10 @@ const getUserData = async (email) => {
   return queryData;
 };
 
-export { auth, db, store, getUserData };
+const getUserId = async (email) => {
+  const query = await db.collection("users").where("email", "==", email).get();
+  const queryData = await query.docs[0].id;
+  return queryData;
+};
+
+export { auth, db, store, getUserData, getUserId };

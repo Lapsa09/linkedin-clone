@@ -84,9 +84,10 @@ function Feed() {
           }) => (
             <Post
               key={id}
+              id={id}
               name={`${name} ${lastName}`}
-              description={description}
               photoUrl={photoURL}
+              description={description}
               liked={liked}
               message={message}
             />

@@ -1,0 +1,83 @@
+.menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 70px;
+    right: 440px;
+    background-color: white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -webkit-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+}
+
+.menu__profile {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu__profile>.menu__avatar {
+    height: 50px !important;
+    object-fit: contain !important;
+    width: 50px !important;
+}
+
+.menu__profileInfo {
+    margin-left: 15px;
+}
+
+.menu__profileInfo>h2 {
+    font-weight: 600;
+}
+
+.menu__profileInfo>p {
+    color: gray;
+}
+
+.menu>button {
+    width: 90%;
+    margin: 0 auto 5px;
+    border: 1px solid #0074b1;
+    border-radius: 15px;
+    background-color: transparent;
+    color: #0074b1;
+    font-weight: 600;
+    padding: 5px;
+    transition: 0.1s ease-in-out;
+}
+
+.menu>button:hover {
+    cursor: pointer;
+    background-color: rgba(0, 116, 177, 0.2);
+    border-width: 2px;
+    padding: 4px;
+}
+
+.menu__tab {
+    margin-top: 10px;
+    border-top: 1px solid gray;
+    padding-top: 5px;
+    padding-left: 12px;
+}
+
+.menu__tab>h3 {
+    font-weight: 600;
+}
+
+.menu__tab>p {
+    margin-top: 5px;
+    color: gray;
+}
+
+.menu__tab>p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.menu__tab:nth-last-child(1) {
+    padding-bottom: 10px;
+}

@@ -8,12 +8,18 @@ import {
 import React, { forwardRef } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
+import { db } from "../../firebase";
 import InputOption from "../input-option/InputOption";
 import "./post.css";
 
 const Post = forwardRef(
-  ({ name, description, message, photoUrl, liked }, ref) => {
+  ({ id, name, description, message, photoUrl, liked }, ref) => {
     const user = useSelector(selectUser);
+
+    const likeUnlike = () => {
+      db.collection("posts").doc(id).update({ liked: !liked });
+    };
+
     return (
       <div ref={ref} className="post">
         <div className="post__header">
@@ -31,8 +37,9 @@ const Post = forwardRef(
         <div className="post__buttons">
           <InputOption
             Icon={ThumbUpOutlined}
-            title="Like"
-            color={liked ? "lightblue" : "gray"}
+            onClick={likeUnlike}
+            title={liked ? "Liked" : "Like"}
+            color={liked ? "aqua" : "gray"}
           />
           <InputOption Icon={ChatOutlined} title="Comment" color="gray" />
           <InputOption Icon={ShareOutlined} title="Share" color="gray" />
