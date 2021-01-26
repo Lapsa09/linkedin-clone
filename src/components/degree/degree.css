@@ -1,0 +1,42 @@
+.degree {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+}
+
+.degree>img {
+    object-fit: contain;
+    height: 56px;
+}
+
+.degree__text {
+    margin-left: 10px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 10px;
+}
+
+.degree:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.degree__text>h4 {
+    font-weight: 600;
+}
+
+.degree__text>p {
+    font-size: 14px;
+}
+
+.degree__text>span {
+    font-size: 14px;
+    color: gray;
+}
+
+.degree>.MuiSvgIcon-root {
+    position: absolute;
+    top: 0;
+    right: 30px;
+}

@@ -4,6 +4,7 @@ import { Switch, BrowserRouter, Route, Redirect } from "react-router-dom";
 import Header from "./components/header/Header";
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/login/Login";
+import Profile from "./components/profile/Profile";
 import Register from "./components/register/Register";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth, getUserData } from "./firebase";
@@ -50,7 +51,10 @@ function App() {
             path="/register"
             render={() => (!user ? <Register /> : <Redirect to="/" />)}
           />
-          <Route path="/profile" />
+          <Route
+            path="/profile"
+            render={() => (!user ? <Redirect to="login" /> : <Profile />)}
+          />
         </Switch>
       </BrowserRouter>
     </div>

@@ -38,9 +38,14 @@
     color: gray;
 }
 
-.menu>button {
+.link {
+    text-decoration: none;
+    margin: 0 auto;
     width: 90%;
-    margin: 0 auto 5px;
+}
+
+.menu>.link>button {
+    width: 100%;
     border: 1px solid #0074b1;
     border-radius: 15px;
     background-color: transparent;
@@ -50,7 +55,7 @@
     transition: 0.1s ease-in-out;
 }
 
-.menu>button:hover {
+.menu>.link>button:hover {
     cursor: pointer;
     background-color: rgba(0, 116, 177, 0.2);
     border-width: 2px;
