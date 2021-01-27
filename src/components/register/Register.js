@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { login } from "../../features/userSlice";
-import { auth, db, getUserData, store } from "../../firebase";
+import { auth, db, store } from "../../firebase";
 import "./register.css";
 
 function Register() {
@@ -18,7 +18,7 @@ function Register() {
   const handleFile = async (e) => {
     const file = e.target.files[0];
     const storageRef = store.ref();
-    const fileRef = storageRef.child("image/", file.name);
+    const fileRef = storageRef.child("profilePics/", file.name);
     await fileRef.put(file);
     setPhotoURL(await fileRef.getDownloadURL());
   };

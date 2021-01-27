@@ -10,6 +10,7 @@ import React from "react";
 import HeaderOption from "../header-option/HeaderOption";
 import "./header.css";
 import Menu from "../menu/Menu";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -26,7 +27,9 @@ function Header() {
       </div>
 
       <div className="header__right">
-        <HeaderOption Icon={Home} title="Home" />
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <HeaderOption Icon={Home} title="Home" />
+        </Link>
         <HeaderOption Icon={SupervisorAccount} title="My Network" />
         <HeaderOption Icon={BusinessCenter} title="Jobs" />
         <HeaderOption Icon={Chat} title="Messaging" />

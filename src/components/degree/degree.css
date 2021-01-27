@@ -8,6 +8,7 @@
 .degree>img {
     object-fit: contain;
     height: 56px;
+    width: 56px;
 }
 
 .degree__text {
