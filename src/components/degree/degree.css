@@ -3,6 +3,7 @@
     align-items: center;
     margin-top: 20px;
     position: relative;
+    padding-bottom: 20px;
 }
 
 .degree>img {
@@ -40,4 +41,12 @@
     position: absolute;
     top: 0;
     right: 30px;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+.degree>.MuiSvgIcon-root:hover {
+    background-color: lightgrey;
+    border-radius: 50%;
 }

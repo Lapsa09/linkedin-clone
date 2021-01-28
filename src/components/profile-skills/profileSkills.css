@@ -1,0 +1,32 @@
+.profileSkills {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    padding-right: 0;
+}
+
+.skills__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skills__title>h2 {
+    font-weight: 400;
+}
+
+.skills__title>.MuiSvgIcon-root {
+    object-fit: contain;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 30px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.skills__title>.MuiSvgIcon-root:hover {
+    background-color: lightgray;
+}

@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import InputOption from "../input-option/InputOption";
 import Post from "../post/Post";
-import { db } from "../../firebase";
+import { db, getUserId } from "../../firebase";
 import firebase from "firebase";
 import "./feed.css";
 import { useSelector } from "react-redux";
@@ -33,14 +33,17 @@ function Feed() {
       );
   }, []);
 
-  const sendPost = (e) => {
+  const sendPost = async (e) => {
     e.preventDefault();
+
+    const userId = await getUserId(user.email);
 
     db.collection("posts").add({
       name: user.name,
       lastName: user.lastName,
       description: user.description,
       photoURL: user.photoURL,
+      userId,
       message: input,
       liked: false,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),

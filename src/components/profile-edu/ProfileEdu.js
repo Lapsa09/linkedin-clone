@@ -2,7 +2,7 @@ import { Add } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Degree from "../degree/Degree";
-import { getModalState, openModal } from "../../features/modalSlice";
+import { getModalState, openModal } from "../../features/educModalSlice";
 import EducModal from "../educ-modal/EducModal";
 import "./profileEdu.css";
 import { db, getUserId } from "../../firebase";

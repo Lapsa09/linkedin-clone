@@ -1,0 +1,68 @@
+.skillModal-background {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.skillModal {
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.skillModal>.skillModal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.skillModal__header>.MuiSvgIcon-root {
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.skillModal__header>.MuiSvgIcon-root:hover {
+    background-color: lightgray;
+}
+
+.skillModal>form {
+    display: flex;
+    flex-direction: column;
+}
+
+.skillModal>form>label {
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 15px; */
+}
+
+.skillModal>form>label>input {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.skillModal>form>button {
+    margin: 30px 0 0;
+    width: 150px;
+    height: 50px;
+    font-size: large;
+    color: white;
+    background-color: #0074b1;
+    border-radius: 50px;
+    cursor: pointer;
+    border: none;
+    align-self: flex-end;
+}

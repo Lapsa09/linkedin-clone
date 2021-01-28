@@ -1,0 +1,30 @@
+.ability {
+    margin: 20px 0;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.ability>h4 {
+    font-weight: 600;
+}
+
+.ability__buttons {
+    position: absolute;
+    right: 20px;
+}
+
+.ability__buttons>.MuiSvgIcon-root {
+    margin-right: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+.ability__buttons>.MuiSvgIcon-root:hover {
+    background-color: lightgray;
+}

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "./educModal.css";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../features/modalSlice";
+import { closeModal } from "../../features/educModalSlice";
 import { db, getUserId } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
 

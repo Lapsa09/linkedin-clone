@@ -18,7 +18,7 @@ function Register() {
   const handleFile = async (e) => {
     const file = e.target.files[0];
     const storageRef = store.ref();
-    const fileRef = storageRef.child("profilePics/", file.name);
+    const fileRef = storageRef.child(`profilePics/${file.name}`);
     await fileRef.put(file);
     setPhotoURL(await fileRef.getDownloadURL());
   };
@@ -34,16 +34,17 @@ function Register() {
         })
         .then(() => {
           db.collection("users")
-            .add({
+            .doc(userAuth.user.uid)
+            .set({
               name,
               lastName,
               description,
               email,
               profilePic: photoURL,
             })
-            .then((user) => {
+            .then(() => {
               db.collection("users")
-                .doc(user.id)
+                .doc(userAuth.user.uid)
                 .get()
                 .then((doc) => {
                   dispatch(
