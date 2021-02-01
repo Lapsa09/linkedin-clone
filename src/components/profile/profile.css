@@ -2,11 +2,15 @@
     background-color: #f3f2ef;
     display: flex;
     /* align-items: center; */
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 .profile__center {
     display: flex;
     flex-direction: column;
-    flex: 0.5;
+    flex: 0.6;
+}
+
+.profile__right {
+    flex: 0.16;
 }

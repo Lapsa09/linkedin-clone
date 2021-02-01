@@ -1,4 +1,5 @@
 import React from "react";
+import Follows from "../follows/Follows";
 import ProfileEdu from "../profile-edu/ProfileEdu";
 import ProfileInfo from "../profile-info/ProfileInfo";
 import ProfileSkills from "../profile-skills/ProfileSkills";
@@ -11,6 +12,10 @@ function Profile() {
         <ProfileInfo />
         <ProfileEdu />
         <ProfileSkills />
+      </div>
+      <div className="profile__right">
+        <Follows one={true} />
+        <Follows one={false} />
       </div>
     </div>
   );

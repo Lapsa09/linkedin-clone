@@ -10,6 +10,7 @@ import "./profileSkills.css";
 import SkillModal from "../skill-modal/SkillModal";
 import { db, getUserId } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
+import FlipMove from "react-flip-move";
 
 function ProfileSkills() {
   const dispatch = useDispatch();
@@ -38,9 +39,11 @@ function ProfileSkills() {
         <h2>Skills</h2>
         <Add onClick={() => dispatch(openSkillModal())} />
       </div>
-      {skills.map(({ id, data: { skill } }) => (
-        <Ability key={id} skill={skill} />
-      ))}
+      <FlipMove>
+        {skills.map(({ id, data: { skill } }) => (
+          <Ability key={id} id={id} skill={skill} />
+        ))}
+      </FlipMove>
       {modal && <SkillModal />}
     </div>
   );

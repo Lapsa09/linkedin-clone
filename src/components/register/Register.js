@@ -51,6 +51,7 @@ function Register() {
                     login({
                       name: doc.name,
                       lastName: doc.lastName,
+                      uid: userAuth.user.uid,
                       photoURL: doc.profilePic,
                       description: doc.description,
                       email: doc.email,

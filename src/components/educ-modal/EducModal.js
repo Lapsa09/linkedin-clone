@@ -1,18 +1,34 @@
 import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "./educModal.css";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../features/educModalSlice";
+import { closeModal, getDegreeToEdit } from "../../features/educModalSlice";
 import { db, getUserId } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
 
 function EducModal() {
   const dispatch = useDispatch();
-  const [univLogo, setUnivLogo] = useState("");
-  const [university, setUniversity] = useState("");
-  const [degree, setDegree] = useState("");
-  const [years, setYears] = useState([new Date(), new Date()]);
+
+  const title = useSelector(getDegreeToEdit);
+  const {
+    universityLogo,
+    university,
+    degree,
+    start,
+    end,
+    existing,
+    id,
+  } = title;
+
+  const [univLogo, setUnivLogo] = useState(
+    universityLogo ? universityLogo : ""
+  );
+  const [univ, setUniv] = useState(university ? university : "");
+  const [deg, setDeg] = useState(degree ? degree : "");
+  const [years, setYears] = useState(
+    start && end ? [start, end] : [new Date(), new Date()]
+  );
 
   const user = useSelector(selectUser);
 
@@ -30,11 +46,26 @@ function EducModal() {
     const userId = await getUserId(user.email);
     db.collection("users").doc(userId).collection("education").add({
       universityLogo: univLogo,
-      university,
-      degree,
+      university: univ,
+      degree: deg,
       start: years[0],
       end: years[1],
     });
+    dispatch(closeModal());
+  };
+
+  const edit = async (e) => {
+    e.preventDefault();
+
+    const userId = await getUserId(user.email);
+    db.collection("users").doc(userId).collection("education").doc(id).update({
+      universityLogo: univLogo,
+      university: univ,
+      degree: deg,
+      start: years[0],
+      end: years[1],
+    });
+
     dispatch(closeModal());
   };
 
@@ -58,16 +89,16 @@ function EducModal() {
           <label htmlFor="">
             University*
             <input
-              value={university}
-              onChange={(e) => setUniversity(e.target.value)}
+              value={univ}
+              onChange={(e) => setUniv(e.target.value)}
               type="text"
             />
           </label>
           <label htmlFor="">
             Degree*
             <input
-              value={degree}
-              onChange={(e) => setDegree(e.target.value)}
+              value={deg}
+              onChange={(e) => setDeg(e.target.value)}
               type="text"
             />
           </label>
@@ -81,8 +112,8 @@ function EducModal() {
               required={true}
             />
           </label>
-          <button onClick={upload} type="submit">
-            Add Education
+          <button onClick={existing ? edit : upload} type="submit">
+            {existing ? "Edit Degree" : "Add Education"}
           </button>
         </form>
       </div>

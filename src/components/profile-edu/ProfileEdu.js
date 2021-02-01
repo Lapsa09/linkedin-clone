@@ -46,6 +46,7 @@ function ProfileEdu() {
             }) => (
               <Degree
                 key={id}
+                id={id}
                 universityLogo={universityLogo}
                 university={university}
                 degree={degree}

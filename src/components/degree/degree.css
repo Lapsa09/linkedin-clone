@@ -37,16 +37,19 @@
     color: gray;
 }
 
-.degree>.MuiSvgIcon-root {
+.degree>.deg__buttons {
     position: absolute;
     top: 0;
     right: 30px;
+}
+
+.degree>.deg__buttons>.MuiSvgIcon-root {
     width: 35px;
     height: 35px;
     padding: 5px;
 }
 
-.degree>.MuiSvgIcon-root:hover {
+.degree>.deg__buttons>.MuiSvgIcon-root:hover {
     background-color: lightgrey;
     border-radius: 50%;
 }
