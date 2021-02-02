@@ -8,7 +8,7 @@ import {
 } from "../../features/skillModalSlice";
 import "./profileSkills.css";
 import SkillModal from "../skill-modal/SkillModal";
-import { db, getUserId } from "../../firebase";
+import { db } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
 import FlipMove from "react-flip-move";
 
@@ -18,10 +18,9 @@ function ProfileSkills() {
   const user = useSelector(selectUser);
   const [skills, setSkills] = useState([]);
 
-  useEffect(async () => {
-    const userId = await getUserId(user.email);
+  useEffect(() => {
     db.collection("users")
-      .doc(userId)
+      .doc(user.uid)
       .collection("skills")
       .onSnapshot((snapshot) => {
         setSkills(

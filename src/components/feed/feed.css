@@ -1,9 +1,10 @@
 .feed {
-    flex: 0.6;
+    flex: 0.4;
     margin: 0 20px;
 }
 
 .feed__inputContainer {
+    position: relative;
     background-color: white;
     padding: 10px;
     padding-bottom: 20px;
@@ -40,4 +41,21 @@
 .feed__inputOptions {
     display: flex;
     justify-content: space-evenly;
+}
+
+.feed__inputContainer>img {
+    height: 200px;
+}
+
+.img__delete {
+    position: absolute;
+    left: 10px;
+    opacity: 0;
+}
+
+.img__delete:hover {
+    opacity: 1;
+    cursor: pointer;
+    background-color: lightgray;
+    border-bottom-right-radius: 50%;
 }

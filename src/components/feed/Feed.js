@@ -1,14 +1,15 @@
 import {
   CalendarViewDay,
+  Close,
   Create,
   EventNote,
   Image,
   Subscriptions,
 } from "@material-ui/icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputOption from "../input-option/InputOption";
 import Post from "../post/Post";
-import { db, getUserId } from "../../firebase";
+import { db, store } from "../../firebase";
 import firebase from "firebase";
 import "./feed.css";
 import { useSelector } from "react-redux";
@@ -18,7 +19,10 @@ import FlipMove from "react-flip-move";
 function Feed() {
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
+  const [inputPhoto, setInputPhoto] = useState("");
+  const [fileName, setFileName] = useState("");
   const user = useSelector(selectUser);
+  const hiddenFileInput = useRef(null);
 
   useEffect(() => {
     db.collection("posts")
@@ -36,25 +40,52 @@ function Feed() {
   const sendPost = async (e) => {
     e.preventDefault();
 
-    const userId = await getUserId(user.email);
-
     db.collection("posts").add({
       name: user.name,
       lastName: user.lastName,
       description: user.description,
       photoURL: user.photoURL,
-      userId,
+      inputPhoto,
+      userId: user.uid,
       message: input,
       liked: false,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     setInput("");
+    setInputPhoto("");
+  };
+
+  const openClick = () => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = store.ref();
+    const fileRef = storageRef.child(`postPics/${user.uid}/${file.name}`);
+    await fileRef.put(file);
+    setInputPhoto(await fileRef.getDownloadURL());
+    setFileName(file.name);
+  };
+
+  const handleFileDelete = () => {
+    const storageRef = store.ref();
+    const fileRef = storageRef.child(`postPics/${user.uid}/${fileName}`);
+
+    fileRef.delete().then(() => {
+      setFileName("");
+      setInputPhoto("");
+    });
   };
 
   return (
     <div className="feed">
       <div className="feed__inputContainer">
+        <img src={inputPhoto} alt="" />
+        {inputPhoto && (
+          <Close className="img__delete" onClick={handleFileDelete} />
+        )}
         <div className="feed__input">
           <Create />
           <form>
@@ -69,7 +100,18 @@ function Feed() {
           </form>
         </div>
         <div className="feed__inputOptions">
-          <InputOption Icon={Image} title="Photo" color="#70b5f9" />
+          <InputOption
+            onClick={openClick}
+            Icon={Image}
+            title="Photo"
+            color="#70b5f9"
+          />
+          <input
+            ref={hiddenFileInput}
+            type="file"
+            style={{ display: "none" }}
+            onChange={handleFileUpload}
+          />
           <InputOption Icon={Subscriptions} title="Video" color="#e7a33e" />
           <InputOption Icon={EventNote} title="Event" color="#c0cbcd" />
           <InputOption
@@ -83,13 +125,22 @@ function Feed() {
         {posts.map(
           ({
             id,
-            data: { name, lastName, description, liked, photoURL, message },
+            data: {
+              name,
+              lastName,
+              description,
+              liked,
+              photoURL,
+              inputPhoto,
+              message,
+            },
           }) => (
             <Post
               key={id}
               id={id}
               name={`${name} ${lastName}`}
               photoUrl={photoURL}
+              inputPhoto={inputPhoto}
               description={description}
               liked={liked}
               message={message}

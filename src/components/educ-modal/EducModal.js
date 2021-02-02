@@ -1,5 +1,5 @@
 import { Close } from "@material-ui/icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "./educModal.css";
 import { useDispatch, useSelector } from "react-redux";

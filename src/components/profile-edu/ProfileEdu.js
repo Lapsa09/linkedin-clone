@@ -5,7 +5,7 @@ import Degree from "../degree/Degree";
 import { getModalState, openModal } from "../../features/educModalSlice";
 import EducModal from "../educ-modal/EducModal";
 import "./profileEdu.css";
-import { db, getUserId } from "../../firebase";
+import { db } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
 import FlipMove from "react-flip-move";
 
@@ -15,10 +15,9 @@ function ProfileEdu() {
   const user = useSelector(selectUser);
   const [grades, setGrades] = useState([]);
 
-  useEffect(async () => {
-    const userId = await getUserId(user.email);
+  useEffect(() => {
     db.collection("users")
-      .doc(userId)
+      .doc(user.uid)
       .collection("education")
       .orderBy("start", "desc")
       .onSnapshot((snapshot) => {

@@ -1,12 +1,19 @@
 import { Avatar } from "@material-ui/core";
 import { EditOutlined } from "@material-ui/icons";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getInfoModalState,
+  openInfoModal,
+} from "../../features/infoModalSlice";
 import { selectUser } from "../../features/userSlice";
+import ProfModal from "../prof-modal/ProfModal";
 import "./profileInfo.css";
 
 function ProfileInfo() {
   const user = useSelector(selectUser);
+  const modal = useSelector(getInfoModalState);
+  const dispatch = useDispatch();
   return (
     <div className="profileInfo">
       <img
@@ -21,13 +28,17 @@ function ProfileInfo() {
           <div className="profile__buttons">
             <button className="button add">Add Section</button>
             <button className="button more">More...</button>
-            <EditOutlined className="edit" />
+            <EditOutlined
+              className="edit"
+              onClick={() => dispatch(openInfoModal())}
+            />
           </div>
         </div>
         <h2>{`${user.name} ${user.lastName}`}</h2>
         <p>{user.description}</p>
         <p>Argentina</p>
       </div>
+      {modal && <ProfModal />}
     </div>
   );
 }

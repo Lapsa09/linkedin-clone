@@ -27,6 +27,11 @@
     overflow-wrap: anywhere;
 }
 
+.post__body>img {
+    width: 100%;
+    margin-top: 10px;
+}
+
 .post__buttons {
     display: flex;
     justify-content: space-evenly;

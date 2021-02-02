@@ -13,7 +13,7 @@ import InputOption from "../input-option/InputOption";
 import "./post.css";
 
 const Post = forwardRef(
-  ({ id, name, description, message, photoUrl, liked }, ref) => {
+  ({ id, name, description, inputPhoto, message, photoUrl, liked }, ref) => {
     const user = useSelector(selectUser);
 
     const likeUnlike = () => {
@@ -32,6 +32,7 @@ const Post = forwardRef(
 
         <div className="post__body">
           <p>{message}</p>
+          {inputPhoto && <img src={inputPhoto} />}
         </div>
 
         <div className="post__buttons">
