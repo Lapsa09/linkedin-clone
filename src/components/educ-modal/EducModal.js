@@ -1,34 +1,32 @@
 import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "./educModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, getDegreeToEdit } from "../../features/educModalSlice";
-import { db, getUserId } from "../../firebase";
+import { db } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
 
 function EducModal() {
   const dispatch = useDispatch();
 
   const title = useSelector(getDegreeToEdit);
-  const {
-    universityLogo,
-    university,
-    degree,
-    start,
-    end,
-    existing,
-    id,
-  } = title;
 
-  const [univLogo, setUnivLogo] = useState(
-    universityLogo ? universityLogo : ""
-  );
-  const [univ, setUniv] = useState(university ? university : "");
-  const [deg, setDeg] = useState(degree ? degree : "");
-  const [years, setYears] = useState(
-    start && end ? [start, end] : [new Date(), new Date()]
-  );
+  const [univLogo, setUnivLogo] = useState("");
+  const [univ, setUniv] = useState("");
+  const [deg, setDeg] = useState("");
+  const [years, setYears] = useState([new Date(), new Date()]);
+
+  useEffect(() => {
+    if (title) {
+      const { universityLogo, university, degree, start, end } = title;
+
+      setUnivLogo(universityLogo);
+      setUniv(university);
+      setDeg(degree);
+      setYears([start, end]);
+    }
+  }, []);
 
   const user = useSelector(selectUser);
 
@@ -43,8 +41,7 @@ function EducModal() {
 
   const upload = async (e) => {
     e.preventDefault();
-    const userId = await getUserId(user.email);
-    db.collection("users").doc(userId).collection("education").add({
+    db.collection("users").doc(user.uid).collection("education").add({
       universityLogo: univLogo,
       university: univ,
       degree: deg,
@@ -56,15 +53,17 @@ function EducModal() {
 
   const edit = async (e) => {
     e.preventDefault();
-
-    const userId = await getUserId(user.email);
-    db.collection("users").doc(userId).collection("education").doc(id).update({
-      universityLogo: univLogo,
-      university: univ,
-      degree: deg,
-      start: years[0],
-      end: years[1],
-    });
+    db.collection("users")
+      .doc(user.uid)
+      .collection("education")
+      .doc(title.id)
+      .update({
+        universityLogo: univLogo,
+        university: univ,
+        degree: deg,
+        start: years[0],
+        end: years[1],
+      });
 
     dispatch(closeModal());
   };
@@ -112,8 +111,8 @@ function EducModal() {
               required={true}
             />
           </label>
-          <button onClick={existing ? edit : upload} type="submit">
-            {existing ? "Edit Degree" : "Add Education"}
+          <button onClick={title ? edit : upload} type="submit">
+            {title ? "Edit Degree" : "Add Education"}
           </button>
         </form>
       </div>

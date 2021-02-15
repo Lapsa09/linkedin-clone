@@ -12,6 +12,7 @@ export const educModalSlice = createSlice({
     },
     closeModal: (state) => {
       state.opened = false;
+      state.degree = null;
     },
     selectDegree: (state, action) => {
       state.degree = action.payload;

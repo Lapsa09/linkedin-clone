@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { login } from "../../features/userSlice";
-import { auth, db, store } from "../../firebase";
+import { auth, db } from "../../firebase";
 import "./register.css";
 
 function Register() {
@@ -11,17 +11,8 @@ function Register() {
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-
-  const handleFile = async (e) => {
-    const file = e.target.files[0];
-    const storageRef = store.ref();
-    const fileRef = storageRef.child(`profilePics/${file.name}`);
-    await fileRef.put(file);
-    setPhotoURL(await fileRef.getDownloadURL());
-  };
 
   const register = (e) => {
     e.preventDefault();
@@ -30,7 +21,6 @@ function Register() {
       userAuth.user
         .updateProfile({
           displayName: `${name} ${lastName}`,
-          photoURL,
         })
         .then(() => {
           db.collection("users")
@@ -40,7 +30,7 @@ function Register() {
               lastName,
               description,
               email,
-              profilePic: photoURL,
+              profilePic: "",
             })
             .then(() => {
               db.collection("users")
@@ -52,7 +42,6 @@ function Register() {
                       name: doc.name,
                       lastName: doc.lastName,
                       uid: userAuth.user.uid,
-                      photoURL: doc.profilePic,
                       description: doc.description,
                       email: doc.email,
                     })
@@ -100,7 +89,6 @@ function Register() {
           placeholder="Password"
           type="password"
         />
-        <input type="file" onChange={handleFile} />
         <span>{error}</span>
         <button onClick={register} type="submit">
           Register

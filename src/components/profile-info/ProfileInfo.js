@@ -1,12 +1,14 @@
 import { Avatar } from "@material-ui/core";
-import { EditOutlined } from "@material-ui/icons";
-import React from "react";
+import { EditOutlined, PhotoCamera } from "@material-ui/icons";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getInfoModalState,
   openInfoModal,
 } from "../../features/infoModalSlice";
+import { login } from "../../features/userSlice";
 import { selectUser } from "../../features/userSlice";
+import { auth, db, getPostsById, store } from "../../firebase";
 import ProfModal from "../prof-modal/ProfModal";
 import "./profileInfo.css";
 
@@ -14,6 +16,44 @@ function ProfileInfo() {
   const user = useSelector(selectUser);
   const modal = useSelector(getInfoModalState);
   const dispatch = useDispatch();
+  const hiddenFileInput = useRef(null);
+  const [imgLink, setImgLink] = useState("");
+
+  const openClick = () => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleImg = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = store.ref();
+    const fileRef = storageRef.child(`profilePics/${user.uid}/${file.name}`);
+    await fileRef.put(file);
+    const img = await fileRef.getDownloadURL();
+    setImgLink(img);
+
+    auth.currentUser.updateProfile({
+      photoURL: img,
+    });
+    db.collection("users").doc(user.uid).update({
+      profilePic: img,
+    });
+    dispatch(
+      login({
+        ...user,
+        photoURL: img,
+      })
+    );
+  };
+
+  useEffect(() => {
+    getPostsById(user.uid).then((posts) => {
+      posts.forEach((post) => {
+        db.collection("posts").doc(post).update({
+          photoURL: imgLink,
+        });
+      });
+    });
+  }, [user]);
   return (
     <div className="profileInfo">
       <img
@@ -22,9 +62,13 @@ function ProfileInfo() {
       />
       <div className="profile__text">
         <div className="profile__media">
-          <Avatar src={user.photoURL} className="profile__avatar">
-            {user.email[0].toUpperCase()}
-          </Avatar>
+          <div className="profile__media__avatar">
+            <Avatar src={user.photoURL} className="profile__avatar">
+              {user.email[0].toUpperCase()}
+            </Avatar>
+            <PhotoCamera onClick={openClick} />
+            <input type="file" ref={hiddenFileInput} onChange={handleImg} />
+          </div>
           <div className="profile__buttons">
             <button className="button add">Add Section</button>
             <button className="button more">More...</button>

@@ -30,4 +30,10 @@ const getUserId = async (email) => {
   return queryData;
 };
 
-export { auth, db, store, getUserData, getUserId };
+const getPostsById = async (id) => {
+  const query = await db.collection("posts").where("userId", "==", id).get();
+  const queryData = query.docs.map((post) => post.id);
+  return queryData;
+};
+
+export { auth, db, store, getUserData, getUserId, getPostsById };

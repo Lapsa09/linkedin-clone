@@ -35,6 +35,30 @@
     height: 150px !important;
 }
 
+.profile__media__avatar {
+    position: relative;
+}
+
+.profile__media__avatar>input {
+    display: none;
+}
+
+.profile__media__avatar>.MuiSvgIcon-root {
+    position: absolute;
+    bottom: 6%;
+    right: 6%;
+    height: 34px;
+    width: 34px;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+.profile__media__avatar>.MuiSvgIcon-root:hover {
+    background-color: lightgray;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 .profile__buttons {
     display: flex;
     /* width: 25%; */

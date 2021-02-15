@@ -12,9 +12,7 @@ const Degree = forwardRef(
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
 
-    const openModalForEdit = (e) => {
-      e.preventDefault();
-
+    const openModalForEdit = () => {
       dispatch(
         selectDegree({
           universityLogo,
@@ -22,7 +20,6 @@ const Degree = forwardRef(
           degree,
           start,
           end,
-          existing: true,
           id,
         })
       );
