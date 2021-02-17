@@ -53,7 +53,7 @@ function ProfileInfo() {
         });
       });
     });
-  }, [user]);
+  }, [user.photoURL]);
   return (
     <div className="profileInfo">
       <img
