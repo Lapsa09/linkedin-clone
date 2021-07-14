@@ -1,12 +1,19 @@
 .homepage {
     background-color: #f3f2ef;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     height: 100%;
+    justify-content: space-evenly;
 }
 
-.app__body {
-    display: flex;
-    justify-content: space-evenly;
+@media(max-width:1160px) {
+    .homepage {
+        justify-content: space-between;
+    }
+}
+
+@media(max-width:900px) {
+    .homepage {
+        flex-direction: column;
+        justify-content: center;
+    }
 }

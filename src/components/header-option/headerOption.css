@@ -21,3 +21,9 @@
     height: 25px !important;
     width: 25px !important;
 }
+
+.header-option__icon.res {
+    height: 30px !important;
+    width: 30px !important;
+    margin: auto;
+}

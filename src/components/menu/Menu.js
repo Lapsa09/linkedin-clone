@@ -8,12 +8,14 @@ import "./menu.css";
 import HeaderOption from "../header-option/HeaderOption";
 import { toggleMenu, toggleOpen } from "../../features/menuSlice";
 import { Link } from "react-router-dom";
+import { getWidth } from "../../features/widthSlice";
 
 function Menu() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const menu = useSelector(toggleMenu);
   const dropdownRef = useRef(null);
+  const { width } = useSelector(getWidth);
 
   useEffect(() => {
     const pageClickEvent = (e) => {

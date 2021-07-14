@@ -1,6 +1,5 @@
 .feed {
-    flex: 0.4;
-    margin: 0 20px;
+    width: 40%;
 }
 
 .feed__inputContainer {
@@ -58,4 +57,17 @@
     cursor: pointer;
     background-color: lightgray;
     border-bottom-right-radius: 50%;
+}
+
+@media(max-width:1160px) {
+    .feed {
+        width: 50%;
+    }
+}
+
+@media(max-width:900px) {
+    .feed {
+        width: 90%;
+        align-self: center;
+    }
 }

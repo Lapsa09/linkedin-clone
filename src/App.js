@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, BrowserRouter, Route, Redirect } from "react-router-dom";
 import Header from "./components/header/Header";
@@ -6,12 +6,17 @@ import Homepage from "./components/homepage/Homepage";
 import Login from "./components/login/Login";
 import Profile from "./components/profile/Profile";
 import Register from "./components/register/Register";
+import { useResize } from "./features/useResize";
 import { login, logout, selectUser } from "./features/userSlice";
 import { auth, getUserData } from "./firebase";
+import { setWidth } from "./features/widthSlice";
 
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const myRef = useRef(null);
+  const initWidth = window.innerWidth;
+  const { width } = useResize(myRef, initWidth);
 
   useEffect(() => {
     auth.onAuthStateChanged((userAuth) => {
@@ -33,8 +38,12 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(setWidth({ width }));
+  }, [width]);
   return (
-    <div className="App">
+    <div ref={myRef} className="App">
       <BrowserRouter>
         {user && <Header />}
         <Switch>

@@ -10,9 +10,19 @@ import React from "react";
 import HeaderOption from "../header-option/HeaderOption";
 import "./header.css";
 import Menu from "../menu/Menu";
-import { Link } from "react-router-dom";
+import SearchBar from "../searchBar/SearchBar";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getWidth } from "../../features/widthSlice";
 
 function Header() {
+  const history = useHistory();
+
+  const { width } = useSelector(getWidth);
+
+  const goHome = () => {
+    history.push("/");
+  };
   return (
     <div className="header">
       <div className="header__left">
@@ -20,16 +30,17 @@ function Header() {
           src="https://image.flaticon.com/icons/png/512/174/174857.png"
           alt=""
         />
-        <div className="header__search">
-          <Search />
-          <input type="text" placeholder="Search" />
-        </div>
+
+        {width > 675 ? (
+          <SearchBar />
+        ) : (
+          <HeaderOption Icon={Search} title="Search" />
+        )}
       </div>
 
       <div className="header__right">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <HeaderOption Icon={Home} title="Home" />
-        </Link>
+        <HeaderOption Icon={Home} title="Home" onClick={goHome} />
+
         <HeaderOption Icon={SupervisorAccount} title="My Network" />
         <HeaderOption Icon={BusinessCenter} title="Jobs" />
         <HeaderOption Icon={Chat} title="Messaging" />

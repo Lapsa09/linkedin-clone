@@ -1,9 +1,14 @@
+.menu_total {
+    position: relative;
+}
+
 .menu {
     position: absolute;
     display: flex;
     flex-direction: column;
+    width: 295px;
     top: 70px;
-    right: 440px;
+    right: 23%;
     background-color: white;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -86,3 +91,9 @@
 .menu__tab:nth-last-child(1) {
     padding-bottom: 10px;
 }
+
+/* @media(max-width:1400px) {
+    .menu {
+        right: 18%;
+    }
+} */

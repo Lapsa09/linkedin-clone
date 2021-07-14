@@ -1,0 +1,15 @@
+.header__search {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border-radius: 5px;
+    height: 42px;
+    color: gray;
+    background-color: #eef3fb;
+}
+
+.header__search>input {
+    outline: none;
+    border: none;
+    background: none;
+}
