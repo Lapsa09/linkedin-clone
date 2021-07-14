@@ -31,6 +31,7 @@
     margin-left: 10px;
     outline-width: 0;
     font-weight: 600;
+    width: 100%;
 }
 
 .feed__input>form>button {
@@ -69,5 +70,11 @@
     .feed {
         width: 90%;
         align-self: center;
+    }
+}
+
+@media(max-width:500px) {
+    .feed__inputOptions {
+        flex-wrap: wrap;
     }
 }
