@@ -27,7 +27,7 @@ function Login() {
             })
           )
         )
-        .catch((err) => setError(err));
+        .catch((err) => setError(err.message));
     });
   };
   return (

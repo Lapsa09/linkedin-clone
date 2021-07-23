@@ -1,0 +1,54 @@
+.menu__total {
+    position: relative;
+}
+
+.menu__profile {
+    display: flex;
+    flex-direction: row !important;
+    border-bottom: 1px solid gray !important;
+}
+
+.menu__profile>.avatar__list>.menu__avatar {
+    height: 60px !important;
+    object-fit: contain !important;
+    width: 60px !important;
+    margin: 3px 0;
+}
+
+.menu__profileInfo {
+    margin-left: 15px;
+}
+
+.tabTitle {
+    margin-left: 16px;
+}
+
+.menu__tab {
+    margin-top: 10px;
+    border-top: 1px solid gray;
+    padding-top: 5px;
+}
+
+.menu__tab h3 {
+    user-select: none;
+    font-weight: 600;
+}
+
+.profileButton {
+    width: 100%;
+    border: 1px solid #0074b1;
+    border-radius: 15px;
+    background-color: transparent;
+    color: #0074b1;
+    font-weight: 600;
+    padding: 5px;
+    transition: 0.1s ease-in-out;
+    margin: 0 auto;
+}
+
+.profileButton:hover {
+    cursor: pointer;
+    background-color: rgba(0, 116, 177, 0.2);
+    border-width: 2px;
+    padding: 4px;
+}

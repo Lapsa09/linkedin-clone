@@ -10,11 +10,14 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import HeaderOption from "../header-option/HeaderOption";
 import "./header.css";
-import Menu from "../menu/Menu";
 import SearchBar from "../searchBar/SearchBar";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getWidth } from "../../features/widthSlice";
+import StyledMenu, {
+  CustomMenu,
+  CustomMenuItem,
+} from "../styledMenu/StyledMenu";
 
 function Header() {
   const history = useHistory();
@@ -26,6 +29,7 @@ function Header() {
 
   const [showIcons, setShowIcons] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const goHome = () => {
     history.push("/");
@@ -62,6 +66,14 @@ function Header() {
   const toggleSearchBar = () => {
     setShowSearchBar(!showSearchBar);
   };
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div className="header">
       <div className="header__left">
@@ -96,18 +108,28 @@ function Header() {
           <>
             <HeaderOption Icon={Chat} title="Messaging" />
             <HeaderOption Icon={Notifications} title="Notifications" />
-            <Menu />
+            <StyledMenu />
           </>
         ) : (
           <>
-            <HeaderOption Icon={MoreHoriz} onClick={toggleIcons} />
-            {showIcons && (
-              <div ref={hiddenButtonsRef} className="header__hiddenButtons">
+            <HeaderOption Icon={MoreHoriz} onClick={handleClick} />
+
+            <CustomMenu
+              className="header__hiddenButtons"
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+            >
+              <CustomMenuItem>
                 <HeaderOption Icon={Chat} title="Messaging" />
+              </CustomMenuItem>
+              <CustomMenuItem>
                 <HeaderOption Icon={Notifications} title="Notifications" />
-                <Menu />
-              </div>
-            )}
+              </CustomMenuItem>
+              <CustomMenuItem>
+                <StyledMenu />
+              </CustomMenuItem>
+            </CustomMenu>
           </>
         )}
       </div>
