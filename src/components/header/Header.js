@@ -24,47 +24,19 @@ function Header() {
 
   const { width } = useSelector(getWidth);
 
-  const hiddenButtonsRef = useRef(null);
-  const hiddenSearchRef = useRef(null);
-
-  const [showIcons, setShowIcons] = useState(false);
-  const [showSearchBar, setShowSearchBar] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorSr, setAnchorSr] = useState(null);
 
   const goHome = () => {
     history.push("/");
   };
 
-  useEffect(() => {
-    const pageClickEventA = (e) => {
-      if (hiddenButtonsRef.current !== null) toggleIcons();
-    };
-
-    if (showIcons) {
-      window.addEventListener("click", pageClickEventA);
-    }
-
-    return () => window.removeEventListener("click", pageClickEventA);
-  }, [showIcons]);
-
-  useEffect(() => {
-    const pageClickEventB = (e) => {
-      if (hiddenSearchRef.current !== null) toggleSearchBar();
-    };
-
-    if (showSearchBar) {
-      window.addEventListener("click", pageClickEventB);
-    }
-
-    return () => window.removeEventListener("click", pageClickEventB);
-  }, [showSearchBar]);
-
-  const toggleIcons = () => {
-    setShowIcons(!showIcons);
+  const toggleSearchBar = (e) => {
+    setAnchorSr(e.currentTarget);
   };
 
-  const toggleSearchBar = () => {
-    setShowSearchBar(!showSearchBar);
+  const closeSearchBar = () => {
+    setAnchorSr(null);
   };
 
   const handleClick = (e) => {
@@ -91,11 +63,15 @@ function Header() {
               Icon={Search}
               title="Search"
             />
-            {showSearchBar && (
-              <div ref={hiddenSearchRef} className="hiddenSearchBar">
-                <SearchBar />
-              </div>
-            )}
+
+            <CustomMenu
+              className="hiddenSearchBar"
+              open={Boolean(anchorSr)}
+              anchorEl={anchorSr}
+              onClose={closeSearchBar}
+            >
+              <SearchBar />
+            </CustomMenu>
           </>
         )}
       </div>
@@ -120,15 +96,11 @@ function Header() {
               anchorEl={anchorEl}
               onClose={handleClose}
             >
-              <CustomMenuItem>
-                <HeaderOption Icon={Chat} title="Messaging" />
-              </CustomMenuItem>
-              <CustomMenuItem>
-                <HeaderOption Icon={Notifications} title="Notifications" />
-              </CustomMenuItem>
-              <CustomMenuItem>
-                <StyledMenu />
-              </CustomMenuItem>
+              <HeaderOption Icon={Chat} title="Messaging" />
+
+              <HeaderOption Icon={Notifications} title="Notifications" />
+
+              <StyledMenu />
             </CustomMenu>
           </>
         )}

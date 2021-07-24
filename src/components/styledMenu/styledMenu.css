@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: row !important;
     border-bottom: 1px solid gray !important;
+    justify-content: center;
 }
 
 .menu__profile>.avatar__list>.menu__avatar {
@@ -24,7 +25,7 @@
 }
 
 .menu__tab {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     border-top: 1px solid gray;
     padding-top: 5px;
 }
@@ -43,7 +44,6 @@
     font-weight: 600;
     padding: 5px;
     transition: 0.1s ease-in-out;
-    margin: 0 auto;
 }
 
 .profileButton:hover {
@@ -51,4 +51,8 @@
     background-color: rgba(0, 116, 177, 0.2);
     border-width: 2px;
     padding: 4px;
+}
+
+.menu__profileInfo h2 {
+    font-size: 1.2rem;
 }

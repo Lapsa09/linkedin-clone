@@ -10,9 +10,8 @@ import {
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../features/userSlice";
-import { toggleClose, toggleMenu, toggleOpen } from "../../features/menuSlice";
 import { auth } from "../../firebase";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./styledMenu.css";
 import HeaderOption from "../header-option/HeaderOption";
 
@@ -53,8 +52,8 @@ export const CustomMenuItem = withStyles((theme) => ({
 
 const StyledMenu = () => {
   const user = useSelector(selectUser);
-  const menu = useSelector(toggleMenu);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -81,7 +80,7 @@ const StyledMenu = () => {
         anchorEl={anchorEl}
         onClose={handleClose}
       >
-        <CustomMenuItem className="menu__profile">
+        <div className="menu__profile">
           <ListItemAvatar className="avatar__list">
             <Avatar className="menu__avatar" src={user.photoURL}>
               {user.email[0].toUpperCase()}
@@ -95,9 +94,14 @@ const StyledMenu = () => {
               <p>{user.description}</p>
             </ListItemText>
           </div>
-        </CustomMenuItem>
+        </div>
         <ListItem>
-          <button className="profileButton">View Profile</button>
+          <button
+            onClick={() => history.push("/profile")}
+            className="profileButton"
+          >
+            View Profile
+          </button>
         </ListItem>
         <div className="menu__tab">
           <ListItemText className="tabTitle">

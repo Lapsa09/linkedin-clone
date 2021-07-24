@@ -36,17 +36,12 @@
     border-radius: 5px 0 5px 5px;
     /* width: 150px !important; */
     /* justify-content: space-between; */
+    width: 160px;
 }
 
 .header__hiddenButtons>div>ul {
     display: flex;
-    justify-content: space-between;
-}
-
-.hiddenSearchBar {
-    position: absolute;
-    z-index: 1000;
-    left: 50px;
+    justify-content: space-around;
 }
 
 @media(max-width:290px) {
