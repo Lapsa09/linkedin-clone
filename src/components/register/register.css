@@ -1,6 +1,7 @@
 .register {
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto;
     padding: 100px 0;
     background-color: #f3f2ef;
@@ -15,10 +16,10 @@
 .register>form {
     display: flex;
     flex-direction: column;
+    width: 350px;
 }
 
 .register>form>input {
-    width: 350px;
     height: 50px;
     font-size: 20px;
     padding-left: 10px;
@@ -27,7 +28,7 @@
 }
 
 .register>form>button {
-    width: 365px;
+    /* width: 365px; */
     height: 50px;
     font-size: large;
     color: white;
@@ -38,6 +39,7 @@
 
 .register>p {
     margin-top: 20px;
+    text-align: center;
 }
 
 .register__login {
@@ -47,4 +49,17 @@
 
 .register__login:hover {
     text-decoration: underline;
+}
+
+@media(max-width:350px) {
+    .register {
+        width: 100%;
+    }
+    .register>img {
+        width: 100%;
+        height: auto;
+    }
+    .register>form {
+        width: 100%;
+    }
 }

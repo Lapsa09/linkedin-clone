@@ -1,6 +1,7 @@
 .login {
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto;
     padding: 100px 0;
     background-color: #f3f2ef;
@@ -15,10 +16,10 @@
 .login>form {
     display: flex;
     flex-direction: column;
+    width: 350px;
 }
 
 .login>form>input {
-    width: 350px;
     height: 50px;
     font-size: 20px;
     padding-left: 10px;
@@ -27,7 +28,7 @@
 }
 
 .login>form>button {
-    width: 350px;
+    /* width: 350px; */
     height: 50px;
     font-size: large;
     color: white;
@@ -38,6 +39,7 @@
 
 .login>p {
     margin-top: 20px;
+    text-align: center;
 }
 
 .login__register {
@@ -47,4 +49,17 @@
 
 .login__register:hover {
     text-decoration: underline;
+}
+
+@media(max-width:350px) {
+    .login {
+        width: 100%;
+    }
+    .login>img {
+        width: 100%;
+        height: auto;
+    }
+    .login>form {
+        width: 100%;
+    }
 }
