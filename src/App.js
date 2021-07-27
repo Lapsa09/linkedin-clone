@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(setWidth({ width }));
+    dispatch(setWidth(width));
   }, [width]);
   return (
     <div ref={myRef} className="App">

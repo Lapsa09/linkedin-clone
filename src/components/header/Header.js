@@ -22,7 +22,7 @@ import StyledMenu, {
 function Header() {
   const history = useHistory();
 
-  const { width } = useSelector(getWidth);
+  const width = useSelector(getWidth);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorSr, setAnchorSr] = useState(null);

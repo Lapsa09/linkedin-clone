@@ -43,7 +43,7 @@ const Degree = forwardRef(
         onMouseEnter={() => setShown(true)}
         onMouseLeave={() => setShown(false)}
       >
-        <img src={universityLogo} alt={university} />
+        <img src={universityLogo} />
         {shown && (
           <div className="deg__buttons">
             <EditOutlined onClick={openModalForEdit} />

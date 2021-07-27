@@ -11,10 +11,8 @@ function Follows({ one }) {
         <h4>{name}</h4>
         <span>{deg}</span>
         <p>{desc}</p>
-        <div className="addFollow">
-          <PersonAdd />
-        </div>
       </div>
+      <PersonAdd className="addFollow" />
     </div>
   );
   return (

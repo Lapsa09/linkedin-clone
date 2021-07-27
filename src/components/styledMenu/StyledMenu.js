@@ -37,12 +37,6 @@ export const CustomMenu = withStyles({
 
 export const CustomMenuItem = withStyles((theme) => ({
   root: {
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
-    },
     display: "flex",
     flexDirection: "column",
     alignItems: "start",
@@ -68,6 +62,11 @@ const StyledMenu = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDirect = () => {
+    history.push("/profile");
+    handleClose();
   };
 
   return (
@@ -96,10 +95,7 @@ const StyledMenu = () => {
           </div>
         </div>
         <ListItem>
-          <button
-            onClick={() => history.push("/profile")}
-            className="profileButton"
-          >
+          <button onClick={handleDirect} className="profileButton">
             View Profile
           </button>
         </ListItem>

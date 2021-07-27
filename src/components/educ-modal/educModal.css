@@ -61,7 +61,7 @@
 }
 
 .educationModal>form>.date {
-    width: 30%;
+    /* width: 30%; */
     margin: 10px auto;
     text-align: center;
 }
@@ -76,4 +76,13 @@
     border-radius: 50px;
     cursor: pointer;
     align-self: flex-end;
+}
+
+@media(max-width:500px) {
+    .educationModal {
+        width: 100%;
+    }
+    .educationModal>form>button {
+        width: 100%;
+    }
 }

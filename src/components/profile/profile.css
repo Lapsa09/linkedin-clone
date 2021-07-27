@@ -3,14 +3,22 @@
     display: flex;
     /* align-items: center; */
     justify-content: space-evenly;
+    /* padding: 0 200px; */
 }
 
 .profile__center {
     display: flex;
     flex-direction: column;
-    flex: 0.6;
+    width: 60%;
 }
 
 .profile__right {
-    flex: 0.16;
+    /* width: 25%; */
+    flex: 0.45;
+}
+
+@media(max-width:612px) {
+    .profile__center {
+        width: 90%;
+    }
 }

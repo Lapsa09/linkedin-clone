@@ -8,7 +8,7 @@ import "./headerOption.css";
 function HeaderOption({ avatar, Icon, title, onClick }) {
   const user = useSelector(selectUser);
 
-  const { width } = useSelector(getWidth);
+  const width = useSelector(getWidth);
 
   return (
     <div onClick={onClick} className="header-option">
