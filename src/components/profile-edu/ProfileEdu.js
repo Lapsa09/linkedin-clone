@@ -1,13 +1,12 @@
-import { Add } from "@material-ui/icons";
+import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Degree from "../degree/Degree";
 import { getModalState, openModal } from "../../features/educModalSlice";
-import EducModal from "../educ-modal/EducModal";
-import "./profileEdu.css";
-import { db } from "../../firebase";
+import { EducModal, Degree } from "../";
 import { selectUser } from "../../features/userSlice";
+import { getDegrees } from "../../services/profile.service";
 import FlipMove from "react-flip-move";
+import "./profileEdu.css";
 
 function ProfileEdu() {
   const modal = useSelector(getModalState);
@@ -16,18 +15,7 @@ function ProfileEdu() {
   const [grades, setGrades] = useState([]);
 
   useEffect(() => {
-    db.collection("users")
-      .doc(user.uid)
-      .collection("education")
-      .orderBy("start", "desc")
-      .onSnapshot((snapshot) => {
-        setGrades(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        );
-      });
+    Promise.resolve(getDegrees(user.uid)).then((degrees) => setGrades(degrees));
   }, []);
 
   return (

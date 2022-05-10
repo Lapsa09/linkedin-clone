@@ -20,13 +20,13 @@ const store = firebaseApp.storage();
 
 const getUserData = async (email) => {
   const query = await db.collection("users").where("email", "==", email).get();
-  const queryData = await query.docs[0].data();
+  const queryData = query.docs[0].data();
   return queryData;
 };
 
 const getUserId = async (email) => {
   const query = await db.collection("users").where("email", "==", email).get();
-  const queryData = await query.docs[0].id;
+  const queryData = query.docs[0].id;
   return queryData;
 };
 

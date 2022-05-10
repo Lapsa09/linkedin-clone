@@ -1,70 +1,48 @@
-import { Close } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
+import { Close } from "@mui/icons-material";
+import React, { useEffect } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-import "./educModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, getDegreeToEdit } from "../../features/educModalSlice";
-import { db } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
+import { useForm, Controller } from "react-hook-form";
+import { editDegree, newDegree } from "../../services/modals.service";
+import "./educModal.css";
 
 function EducModal() {
   const dispatch = useDispatch();
-
+  const { register, handleSubmit, control, setValue } = useForm({
+    defaultValues: { years: [new Date(), new Date()] },
+  });
   const title = useSelector(getDegreeToEdit);
-
-  const [univLogo, setUnivLogo] = useState("");
-  const [univ, setUniv] = useState("");
-  const [deg, setDeg] = useState("");
-  const [years, setYears] = useState([new Date(), new Date()]);
+  const user = useSelector(selectUser);
+  const univLogo = watch("univLogo");
 
   useEffect(() => {
     if (title) {
       const { universityLogo, university, degree, start, end } = title;
-
-      setUnivLogo(universityLogo);
-      setUniv(university);
-      setDeg(degree);
-      setYears([start, end]);
+      setValue("univLogo", universityLogo);
+      setValue("univ", university);
+      setValue("degree", degree);
+      setValue("years", [start, end]);
     }
   }, []);
 
-  const user = useSelector(selectUser);
-
-  const handleYear = (e) => {
+  const handleYear = (field, e) => {
     if (e) {
       const range = e.map((year) => parseInt(year.toString().split(" ")[3]));
-      setYears(range);
+      field.onChange(range);
     } else {
-      setYears([]);
+      field.onChange([]);
     }
   };
 
-  const upload = async (e) => {
-    e.preventDefault();
-    db.collection("users").doc(user.uid).collection("education").add({
-      universityLogo: univLogo,
-      university: univ,
-      degree: deg,
-      start: years[0],
-      end: years[1],
-    });
+  const upload = async (data) => {
+    await newDegree({ ...data, uid: user.uid });
     dispatch(closeModal());
   };
 
-  const edit = async (e) => {
-    e.preventDefault();
-    db.collection("users")
-      .doc(user.uid)
-      .collection("education")
-      .doc(title.id)
-      .update({
-        universityLogo: univLogo,
-        university: univ,
-        degree: deg,
-        start: years[0],
-        end: years[1],
-      });
-
+  const edit = async (data) => {
+    await editDegree({ ...data, id: title.id, uid: user.id });
     dispatch(closeModal());
   };
 
@@ -76,42 +54,36 @@ function EducModal() {
           <Close onClick={() => dispatch(closeModal())} />
         </div>
         <img src={univLogo} alt="" />
-        <form>
+        <form onSubmit={handleSubmit(title ? edit : upload)}>
           <label htmlFor="">
             University Logo
-            <input
-              value={univLogo}
-              onChange={(e) => setUnivLogo(e.target.value)}
-              type="text"
-            />
+            <input {...register("univLogo")} />
           </label>
           <label htmlFor="">
             University*
-            <input
-              value={univ}
-              onChange={(e) => setUniv(e.target.value)}
-              type="text"
-            />
+            <input {...register("univ")} />
           </label>
           <label htmlFor="">
             Degree*
-            <input
-              value={deg}
-              onChange={(e) => setDeg(e.target.value)}
-              type="text"
-            />
+            <input {...register("deg")} />
           </label>
           <label className="date">
             Start - End
-            <DateRangePicker
-              value={years.map((year) => (year + 1).toString())}
-              onChange={handleYear}
-              format="y"
-              maxDetail="decade"
-              required={true}
+            <Controller
+              name="years"
+              control={control}
+              render={({ field }) => (
+                <DateRangePicker
+                  {...field}
+                  onChange={(e) => handleYear(field, e)}
+                  format="y"
+                  maxDetail="decade"
+                  required={true}
+                />
+              )}
             />
           </label>
-          <button onClick={title ? edit : upload} type="submit">
+          <button type="submit">
             {title ? "Edit Degree" : "Add Education"}
           </button>
         </form>

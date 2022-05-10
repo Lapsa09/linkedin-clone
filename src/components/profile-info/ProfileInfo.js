@@ -1,5 +1,5 @@
-import { Avatar } from "@material-ui/core";
-import { EditOutlined, PhotoCamera } from "@material-ui/icons";
+import { Avatar } from "@mui/material";
+import { EditOutlined, PhotoCamera } from "@mui/icons-material";
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +9,7 @@ import {
 import { login } from "../../features/userSlice";
 import { selectUser } from "../../features/userSlice";
 import { auth, db, getPostsById, store } from "../../firebase";
-import ProfModal from "../prof-modal/ProfModal";
+import { ProfModal } from "../";
 import "./profileInfo.css";
 
 function ProfileInfo() {

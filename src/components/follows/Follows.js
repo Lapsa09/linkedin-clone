@@ -1,5 +1,5 @@
-import { Avatar } from "@material-ui/core";
-import { PersonAdd } from "@material-ui/icons";
+import { Avatar } from "@mui/material";
+import { PersonAdd } from "@mui/icons-material";
 import React from "react";
 import "./follows.css";
 

@@ -1,14 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { getWidth } from "../../features/widthSlice";
-import Follows from "../follows/Follows";
-import ProfileEdu from "../profile-edu/ProfileEdu";
-import ProfileInfo from "../profile-info/ProfileInfo";
-import ProfileSkills from "../profile-skills/ProfileSkills";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import {
+  Follows,
+  ProfileEdu,
+  ProfileInfo,
+  ProfileSkills,
+} from "../../components";
 import "./profile.css";
 
 function Profile() {
-  const width = useSelector(getWidth);
+  const { width } = useWindowSize();
   return (
     <div className="profile">
       <div className="profile__center">

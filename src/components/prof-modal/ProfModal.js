@@ -1,57 +1,31 @@
-import { Close } from "@material-ui/icons";
-import React, { useEffect, useState } from "react";
+import { Close } from "@mui/icons-material";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { closeInfoModal } from "../../features/infoModalSlice";
-import { login, selectUser } from "../../features/userSlice";
-import { auth, db } from "../../firebase";
+import { selectUser, updateUser } from "../../features/userSlice";
+import { getUserData, updateUserData } from "../../services";
 import "./profModal.css";
 
 function ProfModal() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [description, setDescription] = useState("");
+  const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
-    db.collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        setFirstName(doc.data().name);
-        setLastName(doc.data().lastName);
-        setDescription(doc.data().description);
-      });
+    Promise.resolve(getUserData(user.uid)).then(
+      ({ name, lastName, description }) => {
+        setValue("firstName", name);
+        setValue("lastName", lastName);
+        setValue("description", description);
+      }
+    );
   }, []);
 
-  const updateProfile = () => {
-    auth.currentUser().updateProfile({
-      displayName: `${firstName} ${lastName}`,
-    });
-    db.collection("users").doc(user.uid).update({
-      name: firstName,
-      lastName,
-      description,
-    });
-
-    db.collection("users")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        const { name, lastName, profilePic, description, email } = doc.data();
-        dispatch(
-          login({
-            name,
-            lastName,
-            uid: doc.id,
-            photoURL: profilePic,
-            email,
-            description,
-          })
-        );
-      });
-
+  const updateProfile = async (data) => {
+    const { firstName, lastName, description } = data;
+    await updateUserData({ firstName, lastName, description, uid: user.uid });
+    dispatch(updateUser({ firstName, lastName, description }));
     dispatch(closeInfoModal());
   };
 
@@ -62,34 +36,20 @@ function ProfModal() {
           <h2>Add new skill </h2>
           <Close onClick={() => dispatch(closeInfoModal())} />
         </div>
-        <form>
+        <form onSubmit={handleSubmit(updateProfile)}>
           <label htmlFor="">
-            First Name:{" "}
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              type="text"
-            />
+            First Name:
+            <input {...register("firstName")} type="text" />
           </label>
           <label htmlFor="">
-            Last Name:{" "}
-            <input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              type="text"
-            />
+            Last Name:
+            <input {...register("lastName")} type="text" />
           </label>
           <label htmlFor="">
-            Description:{" "}
-            <input
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              type="text"
-            />
+            Description:
+            <input {...register("description")} type="text" />
           </label>
-          <button onClick={updateProfile} type="submit">
-            Update Profile
-          </button>
+          <button type="submit">Update Profile</button>
         </form>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { DeleteOutlined } from "@material-ui/icons";
+import { DeleteOutlined } from "@mui/icons-material";
 import React, { forwardRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
@@ -9,10 +9,15 @@ const Ability = forwardRef(({ skill, id }, ref) => {
   const [showIcons, setShowIcons] = useState(false);
   const user = useSelector(selectUser);
 
-  const deleteSkill = (e) => {
+  const deleteSkill = async (e) => {
     e.preventDefault();
 
-    db.collection("users").doc(user.uid).collection("skills").doc(id).delete();
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .collection("skills")
+      .doc(id)
+      .delete();
   };
   return (
     <div

@@ -6,29 +6,23 @@ import {
   Search,
   SupervisorAccount,
   MoreHoriz,
-} from "@material-ui/icons";
-import React, { useEffect, useRef, useState } from "react";
-import HeaderOption from "../header-option/HeaderOption";
+} from "@mui/icons-material";
+import React, { useState } from "react";
+import { HeaderOption, SearchBar, StyledMenu, CustomMenu } from "../";
+import { useNavigate } from "react-router-dom";
+import { useWindowSize } from "../../hooks/useWindowSize";
 import "./header.css";
-import SearchBar from "../searchBar/SearchBar";
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getWidth } from "../../features/widthSlice";
-import StyledMenu, {
-  CustomMenu,
-  CustomMenuItem,
-} from "../styledMenu/StyledMenu";
 
 function Header() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const width = useSelector(getWidth);
+  const { width } = useWindowSize();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorSr, setAnchorSr] = useState(null);
 
   const goHome = () => {
-    history.push("/");
+    navigate("/");
   };
 
   const toggleSearchBar = (e) => {

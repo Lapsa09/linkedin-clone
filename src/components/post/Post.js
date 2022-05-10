@@ -1,62 +1,42 @@
-import { Avatar } from "@material-ui/core";
+import { Avatar } from "@mui/material";
 import {
   ChatOutlined,
   SendOutlined,
   ShareOutlined,
   ThumbUpOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import React, { forwardRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import { db } from "../../firebase";
-import Comment from "../comment/Comment";
-import InputOption from "../input-option/InputOption";
-import firebase from "firebase";
+import { Comment, InputOption } from "../";
+import { useForm } from "react-hook-form";
+import { getPostComments, newComment } from "../../services";
 import "./post.css";
 
 const Post = forwardRef(
   ({ id, name, description, inputPhoto, message, photoUrl, liked }, ref) => {
     const user = useSelector(selectUser);
     const [commentBar, setCommentBar] = useState(false);
-    const [commentInput, setCommentInput] = useState("");
     const [comments, setComments] = useState([]);
     const [limit, setLimit] = useState(3);
     const [moreOrLess, setMoreOrLess] = useState(true);
     const [showComments, setShowComments] = useState(false);
+    const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-      db.collection("posts")
-        .doc(id)
-        .collection("comments")
-        .orderBy("timestamp", "desc")
-        .onSnapshot((snapshot) =>
-          setComments(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          )
-        );
+      Promise.resolve(getPostComments()).then((comments) =>
+        setComments(comments)
+      );
     }, []);
 
     const likeUnlike = () => {
       db.collection("posts").doc(id).update({ liked: !liked });
     };
 
-    const sendComment = (e) => {
-      e.preventDefault();
-
-      db.collection("posts").doc(id).collection("comments").add({
-        name: user.name,
-        lastName: user.lastName,
-        description: user.description,
-        photoURL: user.photoURL,
-        userId: user.uid,
-        message: commentInput,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-
-      setCommentInput("");
+    const sendComment = async (data) => {
+      await newComment({ ...data, ...user });
+      reset();
       setCommentBar(false);
     };
 
@@ -114,16 +94,9 @@ const Post = forwardRef(
         {commentBar && (
           <div className="commentBar">
             <Avatar src={photoUrl}>{user.email[0].toUpperCase()}</Avatar>
-            <form>
-              <input
-                type="text"
-                placeholder="Comment"
-                value={commentInput}
-                onChange={(e) => setCommentInput(e.target.value)}
-              />
-              <button onClick={sendComment} type="submit">
-                Send
-              </button>
+            <form onSubmit={handleSubmit(sendComment)}>
+              <input placeholder="Comment" {...register("commentInput")} />
+              <button type="submit">Send</button>
             </form>
           </div>
         )}

@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined } from "@material-ui/icons";
+import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import React, { forwardRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal, selectDegree } from "../../features/educModalSlice";

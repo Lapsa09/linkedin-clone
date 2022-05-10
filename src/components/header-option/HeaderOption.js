@@ -1,14 +1,14 @@
-import { Avatar } from "@material-ui/core";
+import { Avatar } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
-import { getWidth } from "../../features/widthSlice";
+import { useWindowSize } from "../../hooks/useWindowSize";
 import "./headerOption.css";
 
 function HeaderOption({ avatar, Icon, title, onClick }) {
   const user = useSelector(selectUser);
 
-  const width = useSelector(getWidth);
+  const { width } = useWindowSize();
 
   return (
     <div onClick={onClick} className="header-option">
