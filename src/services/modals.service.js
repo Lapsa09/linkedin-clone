@@ -1,4 +1,4 @@
-import { auth, db } from "../firebase";
+import { auth, db, getUserId } from "../firebase";
 
 export const newDegree = async (data) => {
   const {
@@ -58,5 +58,11 @@ export const updateUserData = async ({
     name: firstName,
     lastName,
     description,
+  });
+};
+
+export const newSkill = async ({ userId, skill }) => {
+  await db.collection("users").doc(userId).collection("skills").add({
+    skill,
   });
 };

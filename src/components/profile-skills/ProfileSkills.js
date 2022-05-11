@@ -1,16 +1,15 @@
-import { Add } from "@material-ui/icons";
+import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Ability from "../ability/Ability";
 import {
   getSkillModalState,
   openSkillModal,
 } from "../../features/skillModalSlice";
-import "./profileSkills.css";
-import SkillModal from "../skill-modal/SkillModal";
-import { db } from "../../firebase";
+import { SkillModal, Ability } from "../";
 import { selectUser } from "../../features/userSlice";
 import FlipMove from "react-flip-move";
+import { getSkills } from "../../services";
+import "./profileSkills.css";
 
 function ProfileSkills() {
   const dispatch = useDispatch();
@@ -19,17 +18,7 @@ function ProfileSkills() {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    db.collection("users")
-      .doc(user.uid)
-      .collection("skills")
-      .onSnapshot((snapshot) => {
-        setSkills(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        );
-      });
+    Promise.resolve(getSkills(user.uid)).then((skills) => setSkills(skills));
   }, []);
 
   return (

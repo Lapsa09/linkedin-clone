@@ -1,59 +1,22 @@
 import { Avatar } from "@mui/material";
-import { EditOutlined, PhotoCamera } from "@mui/icons-material";
-import React, { useRef, useEffect, useState } from "react";
+import { EditOutlined } from "@mui/icons-material";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getInfoModalState,
   openInfoModal,
 } from "../../features/infoModalSlice";
-import { login } from "../../features/userSlice";
 import { selectUser } from "../../features/userSlice";
-import { auth, db, getPostsById, store } from "../../firebase";
-import { ProfModal } from "../";
+import { ProfModal, ImgUploader } from "../";
+import { useForm } from "react-hook-form";
 import "./profileInfo.css";
 
 function ProfileInfo() {
   const user = useSelector(selectUser);
+  const { control, setValue } = useForm();
   const modal = useSelector(getInfoModalState);
   const dispatch = useDispatch();
-  const hiddenFileInput = useRef(null);
-  const [imgLink, setImgLink] = useState("");
 
-  const openClick = () => {
-    hiddenFileInput.current.click();
-  };
-
-  const handleImg = async (e) => {
-    const file = e.target.files[0];
-    const storageRef = store.ref();
-    const fileRef = storageRef.child(`profilePics/${user.uid}/${file.name}`);
-    await fileRef.put(file);
-    const img = await fileRef.getDownloadURL();
-    setImgLink(img);
-
-    auth.currentUser.updateProfile({
-      photoURL: img,
-    });
-    db.collection("users").doc(user.uid).update({
-      profilePic: img,
-    });
-    dispatch(
-      login({
-        ...user,
-        photoURL: img,
-      })
-    );
-  };
-
-  useEffect(() => {
-    getPostsById(user.uid).then((posts) => {
-      posts.forEach((post) => {
-        db.collection("posts").doc(post).update({
-          photoURL: imgLink,
-        });
-      });
-    });
-  }, [user.photoURL]);
   return (
     <div className="profileInfo">
       <img
@@ -67,8 +30,13 @@ function ProfileInfo() {
             <Avatar src={user.photoURL} className="profile__avatar">
               {user.email[0].toUpperCase()}
             </Avatar>
-            <PhotoCamera onClick={openClick} />
-            <input type="file" ref={hiddenFileInput} onChange={handleImg} />
+            <ImgUploader
+              uid={user.uid}
+              name="profilepic"
+              profile
+              control={control}
+              setValue={setValue}
+            />
           </div>
           <h2>{`${user.name} ${user.lastName}`}</h2>
           <p>{user.description}</p>

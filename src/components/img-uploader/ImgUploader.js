@@ -1,25 +1,33 @@
 import { Image } from "@mui/icons-material";
 import React, { useRef } from "react";
-import { useController, useForm } from "react-hook-form";
+import { useController } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { InputOption } from "../";
-import { store } from "../../firebase";
+import { updateUser } from "../../features/userSlice";
+import { changeProfilePic, uploadImg } from "../../services";
 
-function ImgUploader({ control, name, uid }) {
+function ImgUploader({ control, name, uid, setValue, profile = false }) {
   const hiddenFileInput = useRef(null);
+  const dispatch = useDispatch();
+  const { field } = useController({ name, control });
   const openClick = () => {
     hiddenFileInput.current.click();
   };
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const storageRef = store.ref();
-    const fileRef = storageRef.child(`postPics/${uid}/${file.name}`);
-    await fileRef.put(file);
-    setValue("fileName", file.name);
-    field.onChange(await fileRef.getDownloadURL());
+    const { name, link } = await uploadImg(uid, e);
+    setValue("fileName", name);
+    field.onChange(link);
   };
-  const { field } = useController({ name, control });
-  const { setValue } = useForm();
+
+  const handleImg = async (e) => {
+    const link = await changeProfilePic(uid, e);
+    dispatch(
+      updateUser({
+        photoURL: link,
+      })
+    );
+  };
 
   return (
     <>
@@ -33,7 +41,7 @@ function ImgUploader({ control, name, uid }) {
         ref={hiddenFileInput}
         type="file"
         {...field}
-        onChange={handleFileUpload}
+        onChange={!profile ? handleFileUpload : handleImg}
       />
     </>
   );

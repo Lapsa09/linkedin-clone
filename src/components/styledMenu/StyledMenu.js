@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   ListItem,
@@ -7,13 +6,14 @@ import {
   MenuItem,
   ListItemAvatar,
   ListItemText,
-} from "@material-ui/core";
+  withStyles,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../features/userSlice";
 import { auth } from "../../firebase";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { HeaderOption } from "../";
 import "./styledMenu.css";
-import HeaderOption from "../header-option/HeaderOption";
 
 export const CustomMenu = withStyles({
   paper: {
@@ -47,7 +47,7 @@ export const CustomMenuItem = withStyles((theme) => ({
 const StyledMenu = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -65,7 +65,7 @@ const StyledMenu = () => {
   };
 
   const handleDirect = () => {
-    history.push("/profile");
+    history("/profile");
     handleClose();
   };
 

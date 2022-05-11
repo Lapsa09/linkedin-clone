@@ -1,4 +1,4 @@
-import { FiberManualRecord, Info } from "@material-ui/icons";
+import { FiberManualRecord, Info } from "@mui/icons-material";
 import React from "react";
 import "./widgets.css";
 

@@ -19,7 +19,7 @@ import "./feed.css";
 function Feed() {
   const [posts, setPosts] = useState([]);
   const user = useSelector(selectUser);
-  const { handleSubmit, reset, register, control, watch } = useForm();
+  const { handleSubmit, reset, register, control, watch, setValue } = useForm();
   const [inputPhoto, fileName] = watch(["inputPhoto", "fileName"]);
 
   useEffect(() => {
@@ -57,7 +57,12 @@ function Feed() {
           </form>
         </div>
         <div className="feed__inputOptions">
-          <ImgUploader control={control} name="inputPhoto" uid={user.uid} />
+          <ImgUploader
+            control={control}
+            name="inputPhoto"
+            uid={user.uid}
+            setValue={setValue}
+          />
           <InputOption Icon={Subscriptions} title="Video" color="#e7a33e" />
           <InputOption Icon={EventNote} title="Event" color="#c0cbcd" />
           <InputOption

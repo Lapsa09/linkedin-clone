@@ -5,7 +5,6 @@ import skillModalReducer from "../features/skillModalSlice";
 import storageSession from "redux-persist/lib/storage/session";
 import persistReducer from "redux-persist/es/persistReducer";
 import infoModalReducer from "../features/infoModalSlice";
-import widthReducer from "../features/widthSlice";
 
 const authPersistConfig = {
   key: "user",
@@ -18,6 +17,5 @@ export default configureStore({
     educModal: educModalReducer,
     skillModal: skillModalReducer,
     infoModal: infoModalReducer,
-    width: widthReducer,
   },
 });

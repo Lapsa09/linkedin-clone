@@ -1,4 +1,4 @@
-import { auth, db } from "../firebase";
+import { auth, db, store } from "../firebase";
 
 export const signUp = async (data) => {
   const { email, password, name, lastName, description } = data;
@@ -55,4 +55,12 @@ export const signIn = async (data) => {
     email: doc.email,
     description: doc.description,
   };
+};
+
+export const uploadImg = async (uid, e) => {
+  const file = e.target.files[0];
+  const storageRef = store.ref();
+  const fileRef = storageRef.child(`postPics/${uid}/${file.name}`);
+  await fileRef.put(file);
+  return { name: file.name, link: await fileRef.getDownloadURL() };
 };

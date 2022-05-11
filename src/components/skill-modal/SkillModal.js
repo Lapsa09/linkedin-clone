@@ -1,22 +1,20 @@
-import { Close } from "@material-ui/icons";
-import React, { useState } from "react";
+import { Close } from "@mui/icons-material";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSkillModal } from "../../features/skillModalSlice";
 import { selectUser } from "../../features/userSlice";
-import { db, getUserId } from "../../firebase";
+import { newSkill } from "../../services/modals.service";
 import "./skillModal.css";
 
 function SkillModal() {
-  const [skill, setSkill] = useState("");
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const { register, handleSubmit } = useForm();
 
-  const uploadSkill = async (e) => {
-    e.preventDefault();
-    const userId = await getUserId(user.email);
-    db.collection("users").doc(userId).collection("skills").add({
-      skill,
-    });
+  const uploadSkill = async (data) => {
+    const { skill } = data;
+    await newSkill({ userId: user.uid, skill });
     dispatch(closeSkillModal());
   };
 
@@ -27,18 +25,12 @@ function SkillModal() {
           <h2>Add new skill </h2>
           <Close onClick={() => dispatch(closeSkillModal())} />
         </div>
-        <form>
+        <form onSubmit={handleSubmit(uploadSkill)}>
           <label htmlFor="">
             Skill
-            <input
-              value={skill}
-              onChange={(e) => setSkill(e.target.value)}
-              type="text"
-            />
+            <input {...register("skill")} type="text" />
           </label>
-          <button onClick={uploadSkill} type="submit">
-            Add Skill
-          </button>
+          <button type="submit">Add Skill</button>
         </form>
       </div>
     </div>
