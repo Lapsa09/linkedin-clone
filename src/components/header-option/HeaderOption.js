@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { selectUser } from "../../redux/userSlice";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import "./headerOption.css";
 

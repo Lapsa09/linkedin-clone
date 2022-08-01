@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import { useController } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { InputOption } from "../";
-import { updateUser } from "../../features/userSlice";
+import { updateUser } from "../../redux/userSlice";
 import { changeProfilePic, uploadImg } from "../../services";
 
 function ImgUploader({ control, name, uid, setValue, profile = false }) {

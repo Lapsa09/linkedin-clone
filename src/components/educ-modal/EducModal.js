@@ -2,8 +2,8 @@ import { Close } from "@mui/icons-material";
 import React, { useEffect } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, getDegreeToEdit } from "../../features/educModalSlice";
-import { selectUser } from "../../features/userSlice";
+import { closeModal, getDegreeToEdit } from "../../redux/educModalSlice";
+import { selectUser } from "../../redux/userSlice";
 import { useForm, Controller } from "react-hook-form";
 import { editDegree, newDegree } from "../../services/modals.service";
 import "./educModal.css";
@@ -47,47 +47,43 @@ function EducModal() {
   };
 
   return (
-    <div className="educationModal-background">
-      <div className="educationModal">
-        <div className="modal__header">
-          <h3>Add Educacion</h3>
-          <Close onClick={() => dispatch(closeModal())} />
-        </div>
-        <img src={univLogo} alt="" />
-        <form onSubmit={handleSubmit(title ? edit : upload)}>
-          <label htmlFor="">
-            University Logo
-            <input {...register("univLogo")} />
-          </label>
-          <label htmlFor="">
-            University*
-            <input {...register("univ")} />
-          </label>
-          <label htmlFor="">
-            Degree*
-            <input {...register("deg")} />
-          </label>
-          <label className="date">
-            Start - End
-            <Controller
-              name="years"
-              control={control}
-              render={({ field }) => (
-                <DateRangePicker
-                  {...field}
-                  onChange={(e) => handleYear(field, e)}
-                  format="y"
-                  maxDetail="decade"
-                  required={true}
-                />
-              )}
-            />
-          </label>
-          <button type="submit">
-            {title ? "Edit Degree" : "Add Education"}
-          </button>
-        </form>
+    <div className="educationModal">
+      <div className="modal__header">
+        <h3>Add Educacion</h3>
+        <Close onClick={() => dispatch(closeModal())} />
       </div>
+      <img src={univLogo} alt="" />
+      <form onSubmit={handleSubmit(title ? edit : upload)}>
+        <label htmlFor="">
+          University Logo
+          <input {...register("univLogo")} />
+        </label>
+        <label htmlFor="">
+          University*
+          <input {...register("univ")} />
+        </label>
+        <label htmlFor="">
+          Degree*
+          <input {...register("deg")} />
+        </label>
+        <label className="date">
+          Start - End
+          <Controller
+            name="years"
+            control={control}
+            render={({ field }) => (
+              <DateRangePicker
+                {...field}
+                onChange={(e) => handleYear(field, e)}
+                format="y"
+                maxDetail="decade"
+                required={true}
+              />
+            )}
+          />
+        </label>
+        <button type="submit">{title ? "Edit Degree" : "Add Education"}</button>
+      </form>
     </div>
   );
 }

@@ -1,12 +1,8 @@
-import { Avatar } from "@mui/material";
+import { Avatar, Modal } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getInfoModalState,
-  openInfoModal,
-} from "../../features/infoModalSlice";
-import { selectUser } from "../../features/userSlice";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/userSlice";
 import { ProfModal, ImgUploader } from "../";
 import { useForm } from "react-hook-form";
 import "./profileInfo.css";
@@ -14,8 +10,7 @@ import "./profileInfo.css";
 function ProfileInfo() {
   const user = useSelector(selectUser);
   const { control, setValue } = useForm();
-  const modal = useSelector(getInfoModalState);
-  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="profileInfo">
@@ -46,14 +41,13 @@ function ProfileInfo() {
           <button className="button add">Add Section</button>
           <button className="button more">More...</button>
 
-          <EditOutlined
-            className="edit"
-            onClick={() => dispatch(openInfoModal())}
-          />
+          <EditOutlined className="edit" onClick={() => setOpen(true)} />
         </div>
       </div>
 
-      {modal && <ProfModal />}
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <ProfModal />
+      </Modal>
     </div>
   );
 }

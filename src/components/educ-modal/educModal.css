@@ -1,88 +1,74 @@
-.educationModal-background {
-    background-color: rgba(0, 0, 0, 0.6);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
 .educationModal {
-    background-color: white;
-    position: fixed;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, 20%);
-    width: 60%;
-    height: 75%;
-    border-radius: 10px;
+  background-color: white;
+  width: 60%;
+  height: 75%;
+  border-radius: 10px;
 }
 
-.educationModal>.modal__header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid lightgray;
-    padding: 20px;
+.educationModal > .modal__header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
 }
 
-.educationModal>.modal__header>.MuiSvgIcon-root:hover {
-    background-color: lightgray;
-    border-radius: 50%;
-    cursor: pointer;
+.educationModal > .modal__header > .MuiSvgIcon-root:hover {
+  background-color: lightgray;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.educationModal>form {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 20px 0;
-    justify-content: center;
+.educationModal > form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0;
+  justify-content: center;
 }
 
-.educationModal>img {
-    object-fit: contain;
-    width: 70px;
-    height: 70px;
-    margin: 10px;
+.educationModal > img {
+  object-fit: contain;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
 }
 
-.educationModal>form>label {
-    margin: 15px 0;
-    display: flex;
-    flex-direction: column;
+.educationModal > form > label {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.educationModal>form>label>input {
-    margin-top: 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
-    outline: none;
+.educationModal > form > label > input {
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
 }
 
-.educationModal>form>.date {
-    /* width: 30%; */
-    margin: 10px auto;
-    text-align: center;
+.educationModal > form > .date {
+  /* width: 30%; */
+  margin: 10px auto;
+  text-align: center;
 }
 
-.educationModal>form>button {
-    margin: 30px 0 0;
-    width: 150px;
-    height: 50px;
-    font-size: large;
-    color: white;
-    background-color: #0074b1;
-    border-radius: 50px;
-    cursor: pointer;
-    align-self: flex-end;
+.educationModal > form > button {
+  margin: 30px 0 0;
+  width: 150px;
+  height: 50px;
+  font-size: large;
+  color: white;
+  background-color: #0074b1;
+  border-radius: 50px;
+  cursor: pointer;
+  align-self: flex-end;
 }
 
-@media(max-width:500px) {
-    .educationModal {
-        width: 100%;
-    }
-    .educationModal>form>button {
-        width: 100%;
-    }
+@media (max-width: 500px) {
+  .educationModal {
+    width: 100%;
+  }
+  .educationModal > form > button {
+    width: 100%;
+  }
 }

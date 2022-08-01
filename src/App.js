@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import Header from "./components/header/Header";
-import { login, logout, selectUser } from "./features/userSlice";
+import { login, logout, selectUser } from "./redux/userSlice";
 import { Homepage, Login, Profile, Register } from "./pages";
 import { verify } from "./services/user.service";
 

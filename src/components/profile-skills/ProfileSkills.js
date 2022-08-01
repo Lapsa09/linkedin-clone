@@ -1,20 +1,16 @@
 import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getSkillModalState,
-  openSkillModal,
-} from "../../features/skillModalSlice";
+import { useSelector } from "react-redux";
 import { SkillModal, Ability } from "../";
-import { selectUser } from "../../features/userSlice";
+import { selectUser } from "../../redux/userSlice";
 import FlipMove from "react-flip-move";
 import { getSkills } from "../../services";
+import { Modal } from "@mui/material";
 import "./profileSkills.css";
 
 function ProfileSkills() {
-  const dispatch = useDispatch();
-  const modal = useSelector(getSkillModalState);
   const user = useSelector(selectUser);
+  const [open, setOpen] = useState(false);
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
@@ -25,14 +21,16 @@ function ProfileSkills() {
     <div className="profileSkills">
       <div className="skills__title">
         <h2>Skills</h2>
-        <Add onClick={() => dispatch(openSkillModal())} />
+        <Add onClick={() => setOpen(true)} />
       </div>
       <FlipMove>
         {skills.map(({ id, data: { skill } }) => (
           <Ability key={id} id={id} skill={skill} />
         ))}
       </FlipMove>
-      {modal && <SkillModal />}
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <SkillModal />
+      </Modal>
     </div>
   );
 }

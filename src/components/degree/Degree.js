@@ -1,8 +1,8 @@
 import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import React, { forwardRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal, selectDegree } from "../../features/educModalSlice";
-import { selectUser } from "../../features/userSlice";
+import { openModal, selectDegree } from "../../redux/educModalSlice";
+import { selectUser } from "../../redux/userSlice";
 import { db } from "../../firebase";
 import "./degree.css";
 

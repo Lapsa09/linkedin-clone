@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { InputOption, Post } from "../index";
 import { store } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { selectUser } from "../../redux/userSlice";
 import { createPost, getPosts } from "../../services";
 import FlipMove from "react-flip-move";
 import { useForm } from "react-hook-form";

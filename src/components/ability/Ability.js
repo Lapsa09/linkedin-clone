@@ -1,7 +1,7 @@
 import { DeleteOutlined } from "@mui/icons-material";
 import React, { forwardRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
+import { selectUser } from "../../redux/userSlice";
 import { db } from "../../firebase";
 import "./ability.css";
 

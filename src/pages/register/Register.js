@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { login } from "../../features/userSlice";
+import { login } from "../../redux/userSlice";
 import { signUp } from "../../services/user.service";
 import { useForm } from "react-hook-form";
 import "./register.css";

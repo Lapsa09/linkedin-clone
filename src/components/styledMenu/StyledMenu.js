@@ -9,7 +9,7 @@ import {
   withStyles,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "../../features/userSlice";
+import { logout, selectUser } from "../../redux/userSlice";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { HeaderOption } from "../";

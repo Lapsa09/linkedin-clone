@@ -1,12 +1,17 @@
 import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getModalState, openModal } from "../../features/educModalSlice";
+import {
+  getModalState,
+  openModal,
+  closeModal,
+} from "../../redux/educModalSlice";
 import { EducModal, Degree } from "../";
-import { selectUser } from "../../features/userSlice";
+import { selectUser } from "../../redux/userSlice";
 import { getDegrees } from "../../services/profile.service";
 import FlipMove from "react-flip-move";
 import "./profileEdu.css";
+import { Modal } from "@mui/material";
 
 function ProfileEdu() {
   const modal = useSelector(getModalState);
@@ -22,7 +27,7 @@ function ProfileEdu() {
     <div className="profileEdu">
       <div className="profileEdu__title">
         <h2>Education</h2>
-        <Add onClick={() => dispatch(openModal())} />
+        <Add onClick={dispatch(openModal)} />
       </div>
       <div className="profileEdu__studies">
         <FlipMove>
@@ -44,7 +49,9 @@ function ProfileEdu() {
           )}
         </FlipMove>
       </div>
-      {modal && <EducModal />}
+      <Modal open={modal} onClose={dispatch(closeModal)}>
+        <EducModal />
+      </Modal>
     </div>
   );
 }

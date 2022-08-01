@@ -2,12 +2,11 @@ import { Close } from "@mui/icons-material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { closeInfoModal } from "../../features/infoModalSlice";
-import { selectUser, updateUser } from "../../features/userSlice";
+import { selectUser, updateUser } from "../../redux/userSlice";
 import { getUserData, updateUserData } from "../../services";
 import "./profModal.css";
 
-function ProfModal() {
+function ProfModal({ closeModal }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const { register, handleSubmit, setValue } = useForm();
@@ -26,32 +25,30 @@ function ProfModal() {
     const { firstName, lastName, description } = data;
     await updateUserData({ firstName, lastName, description, uid: user.uid });
     dispatch(updateUser({ firstName, lastName, description }));
-    dispatch(closeInfoModal());
+    closeModal();
   };
 
   return (
-    <div className="profModal-background">
-      <div className="profModal">
-        <div className="modal__header">
-          <h2>Add new skill </h2>
-          <Close onClick={() => dispatch(closeInfoModal())} />
-        </div>
-        <form onSubmit={handleSubmit(updateProfile)}>
-          <label htmlFor="">
-            First Name:
-            <input {...register("firstName")} type="text" />
-          </label>
-          <label htmlFor="">
-            Last Name:
-            <input {...register("lastName")} type="text" />
-          </label>
-          <label htmlFor="">
-            Description:
-            <input {...register("description")} type="text" />
-          </label>
-          <button type="submit">Update Profile</button>
-        </form>
+    <div className="profModal">
+      <div className="modal__header">
+        <h2>Add new skill </h2>
+        <Close onClick={() => closeModal()} />
       </div>
+      <form onSubmit={handleSubmit(updateProfile)}>
+        <label htmlFor="">
+          First Name:
+          <input {...register("firstName")} type="text" />
+        </label>
+        <label htmlFor="">
+          Last Name:
+          <input {...register("lastName")} type="text" />
+        </label>
+        <label htmlFor="">
+          Description:
+          <input {...register("description")} type="text" />
+        </label>
+        <button type="submit">Update Profile</button>
+      </form>
     </div>
   );
 }

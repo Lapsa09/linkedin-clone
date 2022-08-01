@@ -1,17 +1,7 @@
 export {
-  default as educModalSlice,
-  educModalSlice,
+  default as educModalReducer,
   getDegreeToEdit,
   getModalState,
 } from "./educModalSlice";
-export {
-  default as infoModalSlice,
-  getInfoModalState,
-  infoModalSlice,
-} from "./infoModalSlice";
-export {
-  default as skillModalSlice,
-  getSkillModalState,
-  skillModalSlice,
-} from "./skillModalSlice";
-export { default as userSlice, selectUser, userSlice } from "./userSlice";
+export { default as store } from "./store";
+export { default as userReducer, selectUser } from "./userSlice";
