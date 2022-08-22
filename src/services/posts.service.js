@@ -1,5 +1,5 @@
-import { db } from "../firebase";
 import firebase from "firebase";
+import { db } from "../firebase";
 
 export const getPosts = async () => {
   const posts = await db
@@ -21,6 +21,7 @@ export const createPost = async ({
   photoURL,
   message,
   uid,
+  inputPhoto,
 }) => {
   await db.collection("posts").add({
     name,
@@ -51,7 +52,7 @@ export const getPostComments = async (id) => {
 
 export const newComment = async (data) => {
   const { commentInput, name, lastName, description, photoURL, uid } = data;
-  await db.collection("posts").doc(id).collection("comments").add({
+  await db.collection("posts").doc(uid).collection("comments").add({
     name,
     lastName,
     description,

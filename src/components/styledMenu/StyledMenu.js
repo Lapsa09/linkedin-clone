@@ -9,10 +9,10 @@ import {
   withStyles,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logout, selectUser } from "../../redux/userSlice";
 import { auth } from "../../firebase";
-import { useNavigate } from "react-router-dom";
-import { HeaderOption } from "../";
+import { HeaderOption } from "..";
 import "./styledMenu.css";
 
 export const CustomMenu = withStyles({
@@ -35,7 +35,7 @@ export const CustomMenu = withStyles({
   />
 ));
 
-export const CustomMenuItem = withStyles((theme) => ({
+export const CustomMenuItem = withStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -44,7 +44,7 @@ export const CustomMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const StyledMenu = () => {
+function StyledMenu() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -71,7 +71,7 @@ const StyledMenu = () => {
 
   return (
     <div className="menu__total">
-      <HeaderOption onClick={handleClick} avatar={true} title="Me" />
+      <HeaderOption onClick={handleClick} avatar title="Me" />
 
       <CustomMenu
         className="menu"
@@ -146,6 +146,6 @@ const StyledMenu = () => {
       </CustomMenu>
     </div>
   );
-};
+}
 
 export default StyledMenu;

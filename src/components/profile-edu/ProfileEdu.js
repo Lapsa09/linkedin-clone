@@ -1,17 +1,17 @@
+import { Modal } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import FlipMove from "react-flip-move";
 import {
   getModalState,
   openModal,
   closeModal,
 } from "../../redux/educModalSlice";
-import { EducModal, Degree } from "../";
+import { EducModal, Degree } from "..";
 import { selectUser } from "../../redux/userSlice";
 import { getDegrees } from "../../services/profile.service";
-import FlipMove from "react-flip-move";
 import "./profileEdu.css";
-import { Modal } from "@mui/material";
 
 function ProfileEdu() {
   const modal = useSelector(getModalState);

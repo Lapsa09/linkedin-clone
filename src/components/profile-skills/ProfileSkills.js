@@ -1,11 +1,11 @@
 import { Add } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SkillModal, Ability } from "../";
-import { selectUser } from "../../redux/userSlice";
 import FlipMove from "react-flip-move";
-import { getSkills } from "../../services";
 import { Modal } from "@mui/material";
+import { SkillModal, Ability } from "..";
+import { selectUser } from "../../redux/userSlice";
+import { getSkills } from "../../services";
 import "./profileSkills.css";
 
 function ProfileSkills() {

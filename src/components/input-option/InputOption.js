@@ -4,8 +4,8 @@ import "./inputOption.css";
 function InputOption({ Icon, title, color, onClick }) {
   return (
     <div onClick={onClick} className="input-option">
-      <Icon style={{ color: color }} />
-      <h4 style={{ color: color }}>{title}</h4>
+      <Icon style={{ color }} />
+      <h4 style={{ color }}>{title}</h4>
     </div>
   );
 }

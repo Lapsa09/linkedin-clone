@@ -2,7 +2,7 @@ import { Image } from "@mui/icons-material";
 import React, { useRef } from "react";
 import { useController } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { InputOption } from "../";
+import { InputOption } from "..";
 import { updateUser } from "../../redux/userSlice";
 import { changeProfilePic, uploadImg } from "../../services";
 

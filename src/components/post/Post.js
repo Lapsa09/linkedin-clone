@@ -7,10 +7,10 @@ import {
 } from "@mui/icons-material";
 import React, { forwardRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import { selectUser } from "../../redux/userSlice";
 import { db } from "../../firebase";
-import { Comment, InputOption } from "../";
-import { useForm } from "react-hook-form";
+import { Comment, InputOption } from "..";
 import { getPostComments, newComment } from "../../services";
 import "./post.css";
 

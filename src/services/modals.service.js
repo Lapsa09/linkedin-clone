@@ -1,4 +1,4 @@
-import { auth, db, getUserId } from "../firebase";
+import { auth, db } from "../firebase";
 
 export const newDegree = async (data) => {
   const {

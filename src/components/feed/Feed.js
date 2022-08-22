@@ -6,13 +6,13 @@ import {
   Subscriptions,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { InputOption, Post } from "../index";
-import { store } from "../../firebase";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/userSlice";
-import { createPost, getPosts } from "../../services";
 import FlipMove from "react-flip-move";
 import { useForm } from "react-hook-form";
+import { InputOption, Post } from "../index";
+import { store } from "../../firebase";
+import { selectUser } from "../../redux/userSlice";
+import { createPost, getPosts } from "../../services";
 import ImgUploader from "../img-uploader/ImgUploader";
 import "./feed.css";
 
@@ -24,8 +24,8 @@ function Feed() {
 
   useEffect(() => {
     const loadPosts = async () => {
-      const posts = await Promise.resolve(getPosts());
-      setPosts(posts);
+      const _posts = await Promise.resolve(getPosts());
+      setPosts(_posts);
     };
     loadPosts();
   }, []);

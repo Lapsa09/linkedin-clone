@@ -23,7 +23,7 @@ function SkillModal({ closeModal }) {
         <Close onClick={() => closeModal()} />
       </div>
       <form onSubmit={handleSubmit(uploadSkill)}>
-        <label htmlFor="">
+        <label htmlFor="skill">
           Skill
           <input {...register("skill")} type="text" />
         </label>

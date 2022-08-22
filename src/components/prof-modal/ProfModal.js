@@ -35,15 +35,15 @@ function ProfModal({ closeModal }) {
         <Close onClick={() => closeModal()} />
       </div>
       <form onSubmit={handleSubmit(updateProfile)}>
-        <label htmlFor="">
+        <label htmlFor="firstName">
           First Name:
           <input {...register("firstName")} type="text" />
         </label>
-        <label htmlFor="">
+        <label htmlFor="lastName">
           Last Name:
           <input {...register("lastName")} type="text" />
         </label>
-        <label htmlFor="">
+        <label htmlFor="description">
           Description:
           <input {...register("description")} type="text" />
         </label>

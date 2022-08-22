@@ -1,5 +1,5 @@
 import { auth, db, getPostsById } from "../firebase";
-import { uploadImg } from "./";
+import { uploadImg } from ".";
 
 export const getDegrees = async (uid) => {
   const degrees = await db

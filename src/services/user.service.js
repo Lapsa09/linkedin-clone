@@ -1,4 +1,4 @@
-import { auth, db, store } from "../firebase";
+import { auth, db, getUserData, store } from "../firebase";
 
 export const signUp = async (data) => {
   const { email, password, name, lastName, description } = data;
@@ -36,9 +36,8 @@ export const verify = async () => {
         description: doc.description,
         photoURL: doc.profilePic,
       };
-    } else {
-      return null;
     }
+    return null;
   });
 };
 

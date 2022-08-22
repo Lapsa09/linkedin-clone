@@ -19,7 +19,7 @@ function Profile() {
       </div>
       {width > 612 && (
         <div className="profile__right">
-          <Follows one={true} />
+          <Follows one />
           <Follows one={false} />
         </div>
       )}

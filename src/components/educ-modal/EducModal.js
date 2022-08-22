@@ -2,15 +2,15 @@ import { Close } from "@mui/icons-material";
 import React, { useEffect } from "react";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 import { closeModal, getDegreeToEdit } from "../../redux/educModalSlice";
 import { selectUser } from "../../redux/userSlice";
-import { useForm, Controller } from "react-hook-form";
 import { editDegree, newDegree } from "../../services/modals.service";
 import "./educModal.css";
 
 function EducModal() {
   const dispatch = useDispatch();
-  const { register, handleSubmit, control, setValue } = useForm({
+  const { register, handleSubmit, control, setValue, watch } = useForm({
     defaultValues: { years: [new Date(), new Date()] },
   });
   const title = useSelector(getDegreeToEdit);
@@ -27,7 +27,7 @@ function EducModal() {
     }
   }, []);
 
-  const handleYear = (field, e) => {
+  const handleYear = (e) => (field) => {
     if (e) {
       const range = e.map((year) => parseInt(year.toString().split(" ")[3]));
       field.onChange(range);
@@ -54,34 +54,37 @@ function EducModal() {
       </div>
       <img src={univLogo} alt="" />
       <form onSubmit={handleSubmit(title ? edit : upload)}>
-        <label htmlFor="">
+        <label htmlFor="univLogo">
           University Logo
           <input {...register("univLogo")} />
         </label>
-        <label htmlFor="">
+        <label htmlFor="univ">
           University*
           <input {...register("univ")} />
         </label>
-        <label htmlFor="">
+        <label htmlFor="deg">
           Degree*
           <input {...register("deg")} />
         </label>
-        <label className="date">
-          Start - End
-          <Controller
-            name="years"
-            control={control}
-            render={({ field }) => (
-              <DateRangePicker
-                {...field}
-                onChange={(e) => handleYear(field, e)}
-                format="y"
-                maxDetail="decade"
-                required={true}
-              />
-            )}
-          />
-        </label>
+        {
+          // eslint-disable-next-line jsx-a11y/label-has-associated-control
+          <label htmlFor="years" className="date">
+            Start - End
+            <Controller
+              name="years"
+              control={control}
+              render={({ field }) => (
+                <DateRangePicker
+                  {...field}
+                  onChange={handleYear(field)}
+                  format="y"
+                  maxDetail="decade"
+                  required
+                />
+              )}
+            />
+          </label>
+        }
         <button type="submit">{title ? "Edit Degree" : "Add Education"}</button>
       </form>
     </div>

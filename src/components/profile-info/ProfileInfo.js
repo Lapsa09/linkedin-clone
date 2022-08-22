@@ -2,9 +2,9 @@ import { Avatar, Modal } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/userSlice";
-import { ProfModal, ImgUploader } from "../";
 import { useForm } from "react-hook-form";
+import { selectUser } from "../../redux/userSlice";
+import { ProfModal, ImgUploader } from "..";
 import "./profileInfo.css";
 
 function ProfileInfo() {
